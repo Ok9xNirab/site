@@ -1,10 +1,15 @@
 ---
 import "../styles/global.css";
 export interface Props {
-  title: String;
+  title: string;
+  description?: string;
+  image?: string;
 }
 import Header from "../components/layouts/Header.astro";
-const { title } = Astro.props as Props;
+const { title, description, image } = Astro.props as Props;
+const defaultDescription =
+  "Istiaq Nirab is a WordPress plugin developer. Here I share my thoughts on WordPress coding related stuffs.";
+const defaultImg = "https://nirab.me/me-classic.jpeg";
 ---
 
 <!DOCTYPE html>
@@ -13,6 +18,27 @@ const { title } = Astro.props as Props;
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content={title} />
+    <meta name="description" content={description ?? defaultDescription} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nirab.me/" />
+    <meta property="og:title" content={title} />
+    <meta
+      property="og:description"
+      content={description ?? defaultDescription}
+    />
+    <meta property="og:image" content={image ?? defaultImg} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://nirab.me/" />
+    <meta property="twitter:title" content={title} />
+    <meta
+      property="twitter:description"
+      content={description ?? defaultDescription}
+    />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
