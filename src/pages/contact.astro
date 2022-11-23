@@ -1,0 +1,54 @@
+---
+import Default from "@layouts/default.astro";
+const socials = [
+  {
+    label: "Twitter",
+    url: "https://twitter.com/ok9xnirab",
+  },
+  {
+    label: "GitHub",
+    url: "https://github.com/ok9xnirab",
+  },
+  {
+    label: "LinkedIn",
+    url: "https://www.linkedin.com/in/ok9xnirab/",
+  },
+  {
+    label: "Facebook",
+    url: "https://www.facebook.com/ok9xnirab",
+  },
+  {
+    label: "Instagram",
+    url: "https://www.instagram.com/ok9xnirab",
+  },
+];
+---
+
+<Default title="Contact | Istiaq Nirab">
+  <div class="my-20 lg:max-w-screen-sm mx-10 lg:mx-auto">
+    <div class="mb-10">
+      <h4 class="text-2xl font-semibold text-gray-600 mb-2">Contact</h4>
+      <p class="text-sm font-sans text-gray-400">
+        Some of my social links here
+      </p>
+    </div>
+    <div class="font-sans">
+      <ul>
+        {
+          socials.map((social) => (
+            <li class="mb-4">
+              <a
+                href={social.url}
+                class="text-gray-600 hover:text-gray-800"
+                rel="noreferrer"
+                target="_blank"
+              >
+                {social.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Default>

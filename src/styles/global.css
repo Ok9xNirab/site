@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* font-family: "JetBrains Mono", sans-serif; */
+  font-family: "Space Grotesk", sans-serif;
+  @apply my-5 mx-2;
+}
+
+a {
+  @apply text-purple-500 hover:text-purple-600 hover:underline;
+}
+
+.photo-rotate {
+  position: relative;
+  left: 50px;
+  @apply border p-2 ml-5 w-1/3 hidden lg:block shadow-xl;
+}
+
+.post-card {
+  transition: transform 0.3s cubic-bezier(0.34, 2, 0.6, 1), box-shadow 0.2s ease,
+    -webkit-transform 0.3s cubic-bezier(0.34, 2, 0.6, 1);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  color: #22292f;
+  @apply bg-white transition block border w-full mb-10 p-5 rounded;
+}
+
+.post-card:hover {
+  -webkit-transform: translateY(-5px);
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  @apply no-underline text-black;
+}

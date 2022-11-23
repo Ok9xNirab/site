@@ -1,0 +1,19 @@
+---
+// Use Astro.glob() to fetch all posts, and then sort them by date.
+const posts = (await Astro.glob("./../../posts/**/*.{md,mdx}"))
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.publishDate).valueOf() -
+      new Date(a.frontmatter.publishDate).valueOf()
+  )
+  .filter((post) => !post.frontmatter.draft);
+
+import Default from "@layouts/default.astro";
+import Item from "@components/posts/Item.astro";
+---
+
+<Default title="Blog | Istiaq Nirab">
+  <div class="my-20 lg:max-w-screen-sm mx-auto">
+    {posts.map((post) => <Item {...post.frontmatter} />)}
+  </div>
+</Default>
