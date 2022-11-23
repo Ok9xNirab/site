@@ -9,7 +9,7 @@ import Header from "../components/layouts/Header.astro";
 const { title, description, image } = Astro.props as Props;
 const defaultDescription =
   "Istiaq Nirab is a WordPress plugin developer. Here I share my thoughts on WordPress coding related stuffs.";
-const defaultImg = "https://nirab.me/me-classic.jpeg";
+const defaultImg = "/me-classic.jpeg";
 ---
 
 <!DOCTYPE html>
@@ -29,7 +29,10 @@ const defaultImg = "https://nirab.me/me-classic.jpeg";
       property="og:description"
       content={description ?? defaultDescription}
     />
-    <meta property="og:image" content={image ?? defaultImg} />
+    <meta
+      property="og:image"
+      content={`https://nirab.me${image ?? defaultImg}`}
+    />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -38,6 +41,10 @@ const defaultImg = "https://nirab.me/me-classic.jpeg";
     <meta
       property="twitter:description"
       content={description ?? defaultDescription}
+    />
+    <meta
+      property="twitter:image"
+      content={`https://nirab.me${image ?? defaultImg}`}
     />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
