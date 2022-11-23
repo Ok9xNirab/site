@@ -4,7 +4,7 @@ path: "enqueue-css-js-wordpress"
 excerpt: "Add your JavaScript & CSS assets on your wordpress site throught theme OR plugins"
 date: 2022-04-10
 tags: ["WordPress"]
-image: "/img/wp-bg.jpeg"
+image: "/images/wordpress.jpeg"
 ---
 
 There are two steps taken when enqueueing a script or a style. First you register it – tell WordPress it’s there – and then you actually enqueue it, which eventually outputs it into the header or just before the closing body tag.

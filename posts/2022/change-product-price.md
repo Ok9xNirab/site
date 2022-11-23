@@ -4,6 +4,7 @@ path: "woocommerce-change-price-programmatically"
 excerpt: "Change WooCommerce product price ( simple & variable )"
 date: 2022-09-25
 tags: ["WooCommerce"]
+image: "/images/woocommerce.jpeg"
 ---
 
 To change existing product price on WooCommerce via programmatically , You need to use these filter Hooks :
