@@ -1,0 +1,25 @@
+---
+import Default from "@layouts/default.astro";
+import Search from "@components/Search";
+
+const posts = (await Astro.glob("./../../posts/**/*.{md,mdx}"))
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.publishDate).valueOf() -
+      new Date(a.frontmatter.publishDate).valueOf()
+  )
+  .filter((post) => !post.frontmatter.draft);
+---
+
+<Default title="Search | Istiaq Nirab">
+  <div class="my-20 lg:max-w-screen-sm mx-10 lg:mx-auto">
+    <div class="mb-10">
+      <h4 class="text-2xl font-semibold text-gray-600 mb-2 text-center">
+        Search
+      </h4>
+    </div>
+    <div>
+      <Search client:idle posts={posts} />
+    </div>
+  </div>
+</Default>
