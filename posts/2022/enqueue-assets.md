@@ -9,8 +9,6 @@ image: "/images/wordpress.jpeg"
 
 There are two steps taken when enqueueing a script or a style. First you register it – tell WordPress it’s there – and then you actually enqueue it, which eventually outputs it into the header or just before the closing body tag.
 
-<br/>
-
 ### Register assets
 
 - use [wp_register_style](https://developer.wordpress.org/reference/functions/wp_register_style/) function for register css files

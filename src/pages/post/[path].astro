@@ -3,7 +3,9 @@ import Default from "@layouts/default.astro";
 import { getFormattedDate } from "@utils/index";
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob("./../../../posts/**/*.{md,mdx}");
+  const posts = (await Astro.glob("./../../../posts/**/*.{md,mdx}")).filter(
+    (post) => !post.frontmatter.draft
+  );
 
   const paths = [] as any[];
 
@@ -25,9 +27,9 @@ const { Content } = post;
   description={post.frontmatter.excerpt}
   image={post.frontmatter.image}
 >
-  <div class="my-20 lg:max-w-screen-md mx-auto leading-6">
+  <div class="my-20 lg:max-w-screen-md mx-6 lg:mx-auto leading-6">
     <div class="mb-6">
-      <h3 class="text-4xl font-bold text-gray-700 mb-6">
+      <h3 class="text-xl lg:text-4xl font-bold text-gray-700 mb-6">
         {post.frontmatter.title}
       </h3>
       <div class="flex items-center text-sm justify-between">
@@ -44,7 +46,9 @@ const { Content } = post;
           }
         </div>
       </div>
-      <div class="mx-auto prose prose-lg mt-6">
+      <div
+        class="mx-auto prose prose-sm lg:prose-lg mt-12 font-light text-[darkslategray]"
+      >
         <Content />
       </div>
       <div>
@@ -59,7 +63,7 @@ const { Content } = post;
             <p class="text-gray-700 text-sm my-2 leading-6">
               I’m a WordPress Plugin developer & have some experienced with
               WooCommerce . Last couple of years, I developed 10+ WooCommerce
-              extensions & also do some custom solutions . I'm ready for served
+              extensions & also did some custom solutions . I'm ready for served
               any WordPress & WooCommerce related custom solutions.
             </p>
             <a href="https://twitter.com/ok9xnirab" target="_blank">
