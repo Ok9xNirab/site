@@ -9,18 +9,16 @@ const pathname = new URL(Astro.request.url).pathname;
 ---
 
 <div
-  class="lg:flex justify-between items-center lg:max-w-screen-md mx-auto text-center lg:text-left my-10"
+  class="lg:flex justify-between items-center lg:max-w-screen-xl mx-auto text-center lg:text-left my-10"
 >
-  <a href="/" class="text-3xl text-black hover:text-black hover:no-underline">
-    nirab
-  </a>
+  <a href="/" class="font-bold text-violet-700 text-3xl"> nirab</a>
   <ul class="flex justify-center lg:justify-start items-center mt-4 lg:mt-0">
     {
       pages.map((page) => (
         <li class="mx-3 hover:underline">
           <a
-            class={`text-black hover:text-black ${
-              pathname === page.slug && "underline"
+            class={`text-black hover:text-violet-600 ${
+              pathname === page.slug && "text-violet-600"
             }`}
             href={page.slug}
           >
@@ -30,7 +28,7 @@ const pathname = new URL(Astro.request.url).pathname;
       ))
     }
     <li class="mx-3">
-      <a class="text-black" href="/search">
+      <a class="text-black hover:text-violet-600" href="/search">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6 cursor-pointer"

@@ -1,6 +1,7 @@
 # build output
 dist/
 .output/
+.obsidian/
 
 # dependencies
 node_modules/

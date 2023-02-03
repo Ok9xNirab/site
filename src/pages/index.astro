@@ -1,92 +1,132 @@
 ---
+import plugin from "@tailwindcss/typography";
 import Default from "../layouts/default.astro";
-const plugins: {
-  name: string;
-  icon: string;
-  link: string;
-  description: string;
-}[] = [
+const plugins = [
   {
-    name: "Pre Order Addon for WooCommerce",
-    icon: "📦",
-    link: "https://wordpress.org/plugins/wc-pre-order/",
-    description: "Allow customers to pre-order from your store.",
-  },
-  {
-    name: "Booking for wooCommerce",
-    icon: "📅",
-    link: "https://wordpress.org/plugins/wc-booking/",
-    description:
-      "Show available dates, time in a simple dropdown, take booking for products and services.",
-  },
-  {
-    name: "WooCommerce Subscription",
-    icon: "⏳",
-    link: "https://wordpress.org/plugins/subscription/",
+    title: "Subscription for WooCommerce",
     description:
       "A powerfull plugin that allow to enable subscription on woocommerce products.",
+    img: "subscription-wp.png",
+    color: "bg-violet-600 text-white",
+    link: "https://wordpress.org/plugins/subscription/",
   },
   {
-    name: "Advance Coupons for Woocommerce",
-    icon: "🔖",
-    link: "https://wordpress.org/plugins/advance-coupons-for-woocommerce/",
+    title: "Booking for <br/> wooCommerce",
+    description:
+      "Show available dates, time in a simple dropdown, take booking for products and services.",
+    img: "booking-wp.png",
+    color: "bg-black text-white",
+    link: "https://wordpress.org/plugins/wc-booking/",
+  },
+  {
+    title: "Pre Order Addon for WooCommerce – Advance Order/Backorder Plugin",
+    description: "Allow customers to pre-order from your store.",
+    img: "pre-order-wp.png",
+    color: "bg-pink-600 text-white",
+    link: "https://wordpress.org/plugins/wc-pre-order/",
+  },
+  {
+    title: "PDF Invoices & Packing Slips",
+    description:
+      "Create, print & email PDF invoices & packing slips for WooCommerce orders.",
+    img: "invoice-wp.png",
+    color: "bg-fuchsia-600 text-white",
+    link: "https://wordpress.org/plugins/pdf-invoices-and-packing-slips/",
+  },
+  {
+    title: "Advance Coupons for Woocommerce",
     description:
       "Create gift vouchers, store credits, special discounts based on the amount spent, etc.",
+    img: "coupon-wp.png",
+    color: "bg-orange-600 text-white",
+    link: "https://wordpress.org/plugins/advance-coupons-for-woocommerce/",
   },
   {
-    name: "Bulk Product Selling",
-    icon: "🛒",
-    link: "https://wordpress.org/plugins/bulk-products-selling/",
+    title: "Bulk Product Selling",
     description:
       "Sell many products in one Like Group Product. But you can use single price here.",
+    img: "bpselling-wp.png",
+    color: "bg-teal-700 text-white",
+    link: "https://wordpress.org/plugins/bulk-products-selling/",
   },
   {
-    name: "Checkout Field Customizer",
-    icon: "🛠",
+    title: "Checkout Field Customizer",
+    description: "Customize your checkout fields easily !!",
+    img: "cfc-wp.png",
+    color: "bg-pink-700 text-white",
     link: "https://wordpress.org/plugins/checkout-field-customizer/",
-    description: "Customize checkout fields for WooCommerce.",
   },
   {
-    name: "Social Sharing Button",
-    icon: "🔗",
+    title: "WC SMS Notification",
+    description: "Order SMS Notofication for WooCommerce.",
+    img: "sms-wp.png",
+    color: "bg-slate-700 text-white",
+    link: "https://wordpress.org/plugins/wc-sms-notification/",
+  },
+  {
+    title: "Social Sharing Button",
+    description: "Share your zest with your friends and others.",
+    img: "social-wp.png",
+    color: "bg-blue-700 text-white",
     link: "https://wordpress.org/plugins/product-sharing-buttons/",
-    description: "Add social sharing buttons to your products.",
   },
 ];
 ---
 
 <Default title="Istiaq Nirab | Full Stack Web developer">
-  <div class="my-20 lg:max-w-screen-md mx-auto lg:flex items-start">
-    <div class="mx-5 lg:mx-0 lg:w-2/3">
-      <h3 class="text-5xl mb-2">Hi 👋</h3>
-      <p class="leading-9 text-gray-400">
-        My name is <b class="text-black">Istiaq Nirab</b>. I'm a Full Stack Web
-        Developer. Experienced with <strong class="text-gray-500"
-          >Laravel</strong
-        > &
-        <strong class="text-gray-500">WordPress Plugin Development</strong>.
-        <br />
-        <br />
-        Some Woocommerce based Plugins I developed :
-      </p>
-      <ul class="leading-9 text-sm">
-        {
-          plugins.map((plugin) => (
-            <li class="flex items-center my-10">
-              <span class="mr-3 text-6xl">{plugin.icon}</span>
-              <div>
-                <a href={plugin.link} target="_blank" rel="nofollow">
-                  {plugin.name}
-                </a>
-                <p class="w-full">{plugin.description}</p>
+  <section class="lg:max-w-screen-xl mx-auto">
+    <div class="bg-gray-200 p-10 rounded-xl shadow-xl relative">
+      <div class="mask-1"></div>
+      <div class="flex justify-between items-center">
+        <div>
+          <h3 class="text-4xl leading-10">Hey, I'm <i>Istiaq Nirab</i></h3>
+          <p class="mt-2 text-lg">
+            a Full Stack Developer with 3 years of experience.
+          </p>
+        </div>
+        <img class="w-20 rounded-full" src="/me-classic.jpeg" alt="Photo" />
+      </div>
+    </div>
+    <div class="my-14 grid lg:grid-cols-3 gap-4">
+      {
+        plugins.map((plugin) => (
+          <div
+            class={`${plugin.color} rounded-lg transition-transform p-4 shadow-none hover:-translate-y-2 grid content-between`}
+          >
+            <div class="flex items-start justify-between">
+              <div class="mb-3">
+                <h5 class="text-2xl font-semibold" set:html={plugin.title} />
+                <p class="text-sm my-2">{plugin.description}</p>
               </div>
-            </li>
-          ))
-        }
-      </ul>
+              <a
+                class="p-3 border rounded-full bg-white text-black"
+                href={plugin.link}
+                target="_blank"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                  />
+                </svg>
+              </a>
+            </div>
+            <img
+              class="rounded-lg"
+              src={`/portfolio/${plugin.img}`}
+              alt="Plugin Image"
+            />
+          </div>
+        ))
+      }
     </div>
-    <div class="photo-rotate">
-      <img src="/me-classic.jpeg" alt="my-photo" />
-    </div>
-  </div>
+  </section>
 </Default>
