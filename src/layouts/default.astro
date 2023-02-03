@@ -10,6 +10,7 @@ const { title, description, image } = Astro.props as Props;
 const defaultDescription =
   "Istiaq Nirab is a WordPress plugin developer. Here I share my thoughts on WordPress coding related stuffs.";
 const defaultImg = "/me-classic.jpeg";
+const url = Astro.request.url;
 ---
 
 <!DOCTYPE html>
@@ -23,7 +24,7 @@ const defaultImg = "/me-classic.jpeg";
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://nirab.me/" />
+    <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />
     <meta
       property="og:description"
@@ -36,7 +37,7 @@ const defaultImg = "/me-classic.jpeg";
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://nirab.me/" />
+    <meta property="twitter:url" content={url} />
     <meta property="twitter:title" content={title} />
     <meta
       property="twitter:description"
@@ -54,7 +55,7 @@ const defaultImg = "/me-classic.jpeg";
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap"
       rel="stylesheet"
     />
   </head>

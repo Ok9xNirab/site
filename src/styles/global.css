@@ -4,7 +4,8 @@
 
 body {
   /* font-family: "JetBrains Mono", sans-serif; */
-  font-family: "Space Grotesk", sans-serif;
+  /* font-family: "Space Grotesk", sans-serif; */
+  font-family: "Karla", sans-serif;
   @apply my-5 mx-2;
 }
 

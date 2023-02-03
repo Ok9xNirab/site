@@ -7,7 +7,7 @@ export default function Item({ date, path, title, excerpt, tags }) {
         <h4 class="text-xl leading-normal block mb-6 font-bold">{title}</h4>
       </div>
       <div>
-        <p class="leading-6 font-thin text-gray-400 text-sm">{excerpt}</p>
+        <p class="leading-6 font-normal text-gray-400 text-sm">{excerpt}</p>
       </div>
       <div class="flex justify-between items-center mt-5">
         <p class="text-sm text-gray-800">
