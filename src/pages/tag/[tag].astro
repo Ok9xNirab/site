@@ -1,0 +1,38 @@
+---
+export async function getStaticPaths() {
+  const allPosts = (await Astro.glob("./../../../posts/**/*.{md,mdx}")).filter(
+    (post) => !post.frontmatter.draft
+  );
+
+  const uniqueTags = [
+    ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
+  ];
+
+  const paths = [] as any[];
+
+  uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post) =>
+      post.frontmatter.tags.includes(tag)
+    );
+    paths.push({
+      params: { tag: tag },
+      props: { posts: filteredPosts },
+    });
+  });
+
+  return paths;
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+
+import Default from "@layouts/default.astro";
+import Item from "@components/posts/Item.astro";
+---
+
+<Default title={`${tag} posts | Istiaq Nirab`}>
+  <h4 class="text-3xl text-slate-700 font-semibold text-center mt-20">{tag}</h4>
+  <div class="my-20 lg:max-w-screen-sm mx-auto">
+    {posts.map((post: any) => <Item {...post.frontmatter} />)}
+  </div>
+</Default>
