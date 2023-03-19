@@ -24,3 +24,24 @@ You can do this in two ways.
 1. Using third-party plugins
    > Checkout [Advance Coupons for Woocommerce](https://wordpress.org/plugins/advance-coupons-for-woocommerce/) plugin which can extends default WooCommerce coupon features.
 2. Write own solution Programmatically
+
+Lets take an example:
+
+### If Subtotal is greater than X then give Y discount.
+
+Here **Y discount** will be applied via **Y Coupon**.
+
+```php
+add_action('wp_head', 'apply_coupon_based_on_subtotal');
+
+public function auto_coupon() {
+   $counpon_id = 10; // provide coupon id
+   $x_amount = 199;
+   $applied_coupons  = WC()->cart->get_applied_coupons();
+   $coupon_code = wc_get_coupon_code_by_id($coupon->ID);
+   $subtotal = WC()->cart->get_subtotal();
+   if (!in_array($coupon_code, $applied_coupons) && $subtotal > $x_amount) {
+         WC()->cart->apply_coupon($coupon_code);
+   }
+}
+```
