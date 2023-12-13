@@ -52,9 +52,9 @@ Some vsCode extensions, I always use :
 ![PHP-Intelephense](/images/2022/PHP-Intelephense.png)
 I recommend [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client) for PHP built-in functions completion, code completion (IntelliSense), go to definition support and many more.
 
-![Phpcs](/images/2022/phpcs.png)
+![Phpcs](/images/2022/phpcs-extension.png)
 
-[phpcs](https://marketplace.visualstudio.com/items?itemName=shevaua.phpcs&ssr=false#overview) extension allow us to display phpcs related issues without running phpcs commands every time & also fix coding styles after save file.
+[phpcs](https://marketplace.visualstudio.com/items?itemName=ValeryanM.vscode-phpsab) extension allow us to display phpcs related issues without running phpcs commands every time & also fix coding styles after save file.
 
 To enable WordPress coding standards:
 
