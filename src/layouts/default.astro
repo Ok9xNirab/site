@@ -1,15 +1,18 @@
 ---
 import "../styles/global.css";
+
 export interface Props {
   title: string;
   description?: string;
   image?: string;
 }
+
 import Header from "../components/layouts/Header.astro";
 const { title, description, image } = Astro.props as Props;
+
 const defaultDescription =
-  "Istiaq Nirab is a WordPress plugin developer. Here I share my thoughts on WordPress coding related stuffs.";
-const defaultImg = "/me-classic.jpeg";
+  "Istiaq Nirab — WordPress Plugin Developer & AI Engineer. 9 plugins on wordpress.org, building toward AI product engineering.";
+const defaultImg = "/me.jpeg";
 const url = Astro.request.url;
 ---
 
@@ -22,45 +25,66 @@ const url = Astro.request.url;
     <meta name="title" content={title} />
     <meta name="description" content={description ?? defaultDescription} />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />
-    <meta
-      property="og:description"
-      content={description ?? defaultDescription}
-    />
-    <meta
-      property="og:image"
-      content={`https://nirab.me${image ?? defaultImg}`}
-    />
+    <meta property="og:description" content={description ?? defaultDescription} />
+    <meta property="og:image" content={`https://nirab.me${image ?? defaultImg}`} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={url} />
     <meta property="twitter:title" content={title} />
-    <meta
-      property="twitter:description"
-      content={description ?? defaultDescription}
-    />
-    <meta
-      property="twitter:image"
-      content={`https://nirab.me${image ?? defaultImg}`}
-    />
+    <meta property="twitter:description" content={description ?? defaultDescription} />
+    <meta property="twitter:image" content={`https://nirab.me${image ?? defaultImg}`} />
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
+
     <title>{title}</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
     <Header />
-    <slot />
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <div class="wrap">
+        <div>
+          <span style="color: var(--fg-dim)">©</span> 2026 istiaq nirab &nbsp;·&nbsp;
+          <span style="color: var(--fg-dim)">built with</span> php, astro, ☕
+        </div>
+        <div style="display: flex; gap: 18px;">
+          <a href="https://github.com/ok9xnirab" target="_blank" rel="noreferrer">github</a>
+          <a href="https://bd.linkedin.com/in/ok9xnirab" target="_blank" rel="noreferrer">linkedin</a>
+          <a href="https://dev.to/ok9xnirab" target="_blank" rel="noreferrer">dev.to</a>
+          <a href="https://twitter.com/Ok9xNirab" target="_blank" rel="noreferrer">twitter</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("keydown", (e) => {
+        const tag = (e.target as HTMLElement).tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA") return;
+        const map: Record<string, string> = {
+          "1": "/",
+          "2": "/plugins/",
+          "3": "/blog/",
+          "4": "/contact/",
+        };
+        if (map[e.key]) window.location.href = map[e.key];
+      });
+    </script>
   </body>
 </html>

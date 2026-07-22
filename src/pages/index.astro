@@ -1,136 +1,312 @@
 ---
-import plugin from "@tailwindcss/typography";
-import Default from "../layouts/default.astro";
-const plugins = [
-  {
-    title: "Subscription for WooCommerce",
-    description:
-      "A powerfull plugin that allow to enable subscription on woocommerce products.",
-    img: "subscription-wp.png",
-    color: "bg-violet-600 text-white",
-    link: "https://wordpress.org/plugins/subscription/",
-  },
-  {
-    title: "Booking for <br/> wooCommerce",
-    description:
-      "Show available dates, time in a simple dropdown, take booking for products and services.",
-    img: "booking-wp.png",
-    color: "bg-black text-white",
-    link: "https://wordpress.org/plugins/wc-booking/",
-  },
-  {
-    title: "Pre Order Addon for WooCommerce – Advance Order/Backorder Plugin",
-    description: "Allow customers to pre-order from your store.",
-    img: "pre-order-wp.png",
-    color: "bg-pink-600 text-white",
-    link: "https://wordpress.org/plugins/wc-pre-order/",
-  },
-  {
-    title: "PDF Invoices & Packing Slips",
-    description:
-      "Create, print & email PDF invoices & packing slips for WooCommerce orders.",
-    img: "invoice-wp.png",
-    color: "bg-fuchsia-600 text-white",
-    link: "https://wordpress.org/plugins/pdf-invoices-and-packing-slips/",
-  },
-  {
-    title: "Advance Coupons for Woocommerce",
-    description:
-      "Create gift vouchers, store credits, special discounts based on the amount spent, etc.",
-    img: "coupon-wp.png",
-    color: "bg-orange-600 text-white",
-    link: "https://wordpress.org/plugins/advance-coupons-for-woocommerce/",
-  },
-  {
-    title: "Bulk Product Selling",
-    description:
-      "Sell many products in one Like Group Product. But you can use single price here.",
-    img: "bpselling-wp.png",
-    color: "bg-teal-700 text-white",
-    link: "https://wordpress.org/plugins/bulk-products-selling/",
-  },
-  {
-    title: "Checkout Field Customizer",
-    description: "Customize your checkout fields easily !!",
-    img: "cfc-wp.png",
-    color: "bg-pink-700 text-white",
-    link: "https://wordpress.org/plugins/checkout-field-customizer/",
-  },
-  {
-    title: "WC SMS Notification",
-    description: "Order SMS Notofication for WooCommerce.",
-    img: "sms-wp.png",
-    color: "bg-slate-700 text-white",
-    link: "https://wordpress.org/plugins/wc-sms-notification/",
-  },
-  {
-    title: "Social Sharing Button",
-    description: "Share your zest with your friends and others.",
-    img: "social-wp.png",
-    color: "bg-blue-700 text-white",
-    link: "https://wordpress.org/plugins/product-sharing-buttons/",
-  },
+import Default from "@layouts/default.astro";
+import { getShortDate } from "@utils/index";
+
+const posts = (await Astro.glob("./../../posts/**/*.{md,mdx}"))
+  .sort((a, b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date))
+  .filter((p) => !p.frontmatter.draft)
+  .slice(0, 3);
+
+const PLUGINS = [
+  { name: "Subscription for WooCommerce", slug: "subscription", version: "2.4.1", color: "#7ad9a1", tag: "recurring", blurb: "A powerful plugin that enables recurring subscriptions on any WooCommerce product.", url: "https://wordpress.org/plugins/subscription/" },
+  { name: "Booking for WooCommerce", slug: "booking", version: "1.6.3", color: "#7ab6e8", tag: "scheduling", blurb: "Show available dates and time slots in a dropdown — take bookings for products and services.", url: "https://wordpress.org/plugins/wc-booking/" },
+  { name: "Pre Order Addon for WooCommerce", slug: "pre-order", version: "2.0.8", color: "#e87aa8", tag: "commerce", blurb: "Allow customers to pre-order from your store with advance order and backorder support.", url: "https://wordpress.org/plugins/wc-pre-order/" },
+];
+
+const STACK = [
+  { group: "Languages",      num: "01", items: ["PHP", "JavaScript", "TypeScript", "Python", "HTML5", "CSS3"] },
+  { group: "WordPress",      num: "02", items: ["Plugin API", "WooCommerce", "WP-CLI", "REST API", "Gutenberg", "Action Scheduler"] },
+  { group: "AI Engineering", num: "03", items: ["OpenAI API", "LangChain", "RAG & Embeddings", "FastAPI", "Prompt engineering", "Claude Code"] },
+  { group: "ML / Data",      num: "04", items: ["NumPy", "Pandas", "PyTorch", "Hugging Face", "Scikit-learn"] },
+  { group: "AWS Cloud",      num: "05", items: ["EC2", "S3", "Lambda", "IAM", "RDS", "CloudWatch", "VPC"] },
+  { group: "Web Stack",      num: "06", items: ["Laravel", "Livewire", "Alpine.js", "Vue.js", "Nuxt.js", "React", "Next.js", "Tailwind", "MySQL", "PostgreSQL", "pgvector"] },
+  { group: "Tools & DevOps", num: "07", items: ["Docker", "CI/CD", "Git", "Composer", "npm/pnpm", "PHPUnit", "Pest", "Webpack"] },
+];
+
+const STATS = [
+  { v: "9",   l: "plugins shipped" },
+  { v: "5y+", l: "wordpress dev" },
+  { v: "2",   l: "disciplines" },
 ];
 ---
 
-<Default title="Istiaq Nirab | Full Stack Web developer">
-  <section class="lg:max-w-screen-xl mx-auto">
-    <div class="bg-gray-200 p-10 rounded-xl shadow-xl relative">
-      <div class="mask-1"></div>
-      <div class="flex justify-between items-center">
-        <div>
-          <h3 class="text-4xl leading-10">
-            Hey, I'm <span class="font-semibold text-violet-400"
-              >Istiaq Nirab</span
-            >
-          </h3>
-          <p class="mt-2 text-lg">
-            A Full Stack Developer with 3 years of experience.
-          </p>
+<Default title="Istiaq Nirab — WordPress Plugin Dev & AI Engineer">
+  <div class="page">
+
+    <!-- HERO -->
+    <section style="padding-top: 80px; padding-bottom: 88px;">
+      <div class="wrap">
+        <div class="prompt-line">
+          <span class="pl-path">~/istiaq</span>
+          <span class="pl-dollar">$</span>
+          <span class="pl-cmd" id="typed-cmd"></span>
+          <span class="prompt-caret">▊</span>
         </div>
-        <img class="w-20 rounded-full" src="/me-classic.jpeg" alt="Photo" />
+
+        <h1 style="font-size: clamp(48px, 9vw, 128px); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; margin-bottom: 24px;">
+          <span style="color: var(--fg)">istiaq</span>{" "}
+          <span style="color: var(--fg-dim)">nirab</span><span style="color: var(--accent)">.</span>
+        </h1>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px;">
+          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 12px; color: var(--fg); background: var(--bg-2);">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent);"></span>
+            wordpress plugin engineer
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 12px; color: var(--fg); background: var(--bg-2);">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--warn);"></span>
+            ai engineer
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--fg-dim);">
+            <span style="color: var(--fg-mute)">◆</span>
+            dhaka, bd · utc+6
+          </span>
+        </div>
+
+        <p style="font-size: clamp(18px, 2vw, 24px); color: var(--fg-dim); line-height: 1.45; max-width: 820px; margin-bottom: 12px;">
+          Full-stack developer combining
+          <span style="color: var(--fg)"> WordPress plugin development </span>
+          with <span style="color: var(--accent)">AI engineering expertise</span> — five-plus years
+          shipping production WooCommerce plugins, now building intelligent products
+          with LLMs, RAG, and Python.
+        </p>
+        <p style="font-size: 14px; color: var(--fg-mute); max-width: 780px;">
+          <span style="color: var(--fg-dim)">{"//"}</span> 9 plugins on
+          <span style="color: var(--fg)"> wordpress.org</span> &nbsp;·&nbsp;
+          building toward AI product engineering
+        </p>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 40px;">
+          <a class="btn btn-primary" href="/plugins/">
+            <span>see the plugins</span>
+            <span class="arr">→</span>
+          </a>
+          <a class="btn" href="/contact/">
+            <span>get in touch</span>
+          </a>
+          <a class="btn" href="https://github.com/ok9xnirab" target="_blank" rel="noreferrer">
+            <span style="color: var(--fg-mute)">$</span>
+            <span>github</span>
+          </a>
+        </div>
+
+        <!-- Stats strip -->
+        <div style="margin-top: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+          {STATS.map((s, i) => (
+            <div style={`padding: 24px 20px; ${i > 0 ? 'border-left: 1px solid var(--line);' : ''}`}>
+              <div style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; color: var(--fg);">{s.v}</div>
+              <div style="font-size: 11px; color: var(--fg-mute); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px;">{s.l}</div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-    <div class="my-14 grid lg:grid-cols-3 gap-4">
-      {
-        plugins.map((plugin) => (
-          <div
-            class={`${plugin.color} rounded-lg transition-transform p-4 shadow-none hover:-translate-y-2 grid content-between`}
-          >
-            <div class="flex items-start justify-between">
-              <div class="mb-3">
-                <h5 class="text-2xl font-semibold" set:html={plugin.title} />
-                <p class="text-sm my-2">{plugin.description}</p>
+    </section>
+
+    <!-- PRACTICES -->
+    <section style="padding-top: 32px; padding-bottom: 80px;">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="label" style="margin-bottom: 14px;">// 02 — practices</div>
+          <h2>Two disciplines, one engineer<span style="color: var(--accent)">.</span></h2>
+          <p class="sub">Production WordPress experience meets AI engineering. I build plugins that scale and intelligent backends that ship — and increasingly, products where the two meet.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+
+          <!-- WP Card -->
+          <div class="practice-card" id="wp-card">
+            <div class="practice-card-header">
+              <span class="practice-led" style="background: var(--accent); box-shadow: 0 0 8px var(--accent);"></span>
+              <span class="practice-service">wp-plugin-engineer.service</span>
+              <span class="practice-status" style="color: var(--accent);">● 5+ years in production</span>
+            </div>
+            <div class="practice-body">
+              <div>
+                <div class="practice-tag">
+                  <span style="color: var(--accent)">01</span>
+                  <span style="color: var(--fg-mute)"> / shipping</span>
+                </div>
+                <div class="practice-title">WordPress Plugin Development</div>
+                <p class="practice-copy">Five-plus years building, shipping, and supporting WooCommerce extensions used by thousands of stores. Subscriptions, bookings, pre-orders, checkout customization, PDF invoicing — the gnarly commerce edges.</p>
               </div>
-              <a
-                class="p-3 border rounded-full bg-white text-black"
-                href={plugin.link}
-                target="_blank"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-                  />
-                </svg>
+              <div class="chip-row">
+                {["WordPress", "WooCommerce", "PHP", "Plugin API", "WP-CLI", "MySQL"].map(c => (
+                  <span class="chip">{c}</span>
+                ))}
+              </div>
+              <div class="practice-metrics" style="grid-template-columns: 1fr;">
+                <div class="practice-metric">
+                  <div class="practice-metric-val">9</div>
+                  <div class="practice-metric-label">plugins on wp.org</div>
+                </div>
+              </div>
+              <a class="btn" href="/plugins/" style="justify-content: space-between; border-color: var(--line-strong);">
+                <span>see plugins</span><span>→</span>
               </a>
             </div>
-            <img
-              class="rounded-lg"
-              src={`/portfolio/${plugin.img}`}
-              alt="Plugin Image"
-            />
           </div>
-        ))
-      }
-    </div>
-  </section>
+
+          <!-- AI Card -->
+          <div class="practice-card" id="ai-card">
+            <div class="practice-card-header">
+              <span class="practice-led" style="background: var(--warn); box-shadow: 0 0 8px var(--warn);"></span>
+              <span class="practice-service">ai-product-engineer.service</span>
+              <span class="practice-status" style="color: var(--warn);">● active focus</span>
+            </div>
+            <div class="practice-body">
+              <div>
+                <div class="practice-tag">
+                  <span style="color: var(--warn)">02</span>
+                  <span style="color: var(--fg-mute)"> / building</span>
+                </div>
+                <div class="practice-title">AI Engineering</div>
+                <p class="practice-copy">LLM-backed products, retrieval-augmented systems, and Python services that put intelligence inside real workflows. Currently deepening through the AI Engineer Bootcamp and AWS Cloud Practitioner certification.</p>
+              </div>
+              <div class="chip-row">
+                {["OpenAI API", "LangChain", "FastAPI", "RAG", "PyTorch", "Hugging Face", "AWS"].map(c => (
+                  <span class="chip">{c}</span>
+                ))}
+              </div>
+              <div class="practice-metrics">
+                <div class="practice-metric">
+                  <div class="practice-metric-val">2026</div>
+                  <div class="practice-metric-label">active focus</div>
+                </div>
+                <div class="practice-metric">
+                  <div class="practice-metric-val">AWS</div>
+                  <div class="practice-metric-label">cloud certified*</div>
+                </div>
+              </div>
+              <a class="btn" href="#stack" style="justify-content: space-between; border-color: var(--line-strong);">
+                <span>see the stack</span><span>→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+        <div style="margin-top: 14px; font-size: 11px; color: var(--fg-mute);">* AWS Cloud Practitioner in progress</div>
+      </div>
+    </section>
+
+    <!-- FEATURED PLUGINS -->
+    <section style="padding-top: 32px; padding-bottom: 80px;">
+      <div class="wrap">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; flex-wrap: wrap; gap: 16px;">
+          <div class="section-head" style="margin-bottom: 0;">
+            <div class="label" style="margin-bottom: 14px;">// 03 — work</div>
+            <h2>Plugins on WordPress.org</h2>
+          </div>
+          <a class="btn" href="/plugins/">
+            <span>all 9</span> <span class="arr">→</span>
+          </a>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+          {PLUGINS.map(p => (
+            <a class="plugin-card" href={p.url} target="_blank" rel="noreferrer">
+              <div class="plugin-thumb" style={`background: linear-gradient(135deg, var(--bg-3), var(--bg-2));`}>
+                <div style={`position: absolute; inset: 0; background: repeating-linear-gradient(135deg, ${p.color}14, ${p.color}14 8px, transparent 8px, transparent 16px);`}></div>
+                <div class="plugin-chrome">
+                  <span class="plugin-chrome-dot"></span>
+                  <span class="plugin-chrome-dot"></span>
+                  <span class="plugin-chrome-dot" style={`background: ${p.color};`}></span>
+                  <span class="plugin-chrome-label">wp-admin / plugins / {p.slug}</span>
+                </div>
+                <div class="plugin-badge">
+                  <div class="plugin-badge-tag">./{p.tag}</div>
+                  <div class="plugin-badge-slug" style={`color: ${p.color};`}>{p.slug}.zip</div>
+                </div>
+                <div class="plugin-version">v{p.version}</div>
+              </div>
+              <div class="plugin-body">
+                <div class="plugin-name">{p.name}</div>
+                <p class="plugin-blurb">{p.blurb}</p>
+                <div class="plugin-meta" style="justify-content: flex-end;">
+                  <span class="plugin-meta-link" style="color: var(--fg-dim); transition: color 0.15s;">wp.org →</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section id="stack" style="padding-top: 32px; padding-bottom: 80px; scroll-margin-top: 72px;">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="label" style="margin-bottom: 14px;">// 04 — stack</div>
+          <h2>The tools I reach for<span style="color: var(--accent)">.</span></h2>
+          <p class="sub">A toolbox spanning WordPress, modern web stack, AI engineering, and AWS cloud. Picked for shipping, not for the resume.</p>
+        </div>
+        <div class="stack-grid">
+          {STACK.map((g, gi) => (
+            <div class="stack-group" style={gi === 0 ? 'border-left: none; border-top: none;' : ''}>
+              <div class="stack-group-label">
+                <span class="stack-group-num">{g.num}</span>
+                {g.group}
+              </div>
+              <div>
+                {g.items.map(it => (
+                  <div class="stack-item">
+                    <span class="stack-item-arrow">→</span>
+                    <span>{it}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENT POSTS -->
+    <section style="padding-top: 32px; padding-bottom: 32px;">
+      <div class="wrap">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; flex-wrap: wrap; gap: 16px;">
+          <div class="section-head" style="margin-bottom: 0;">
+            <div class="label" style="margin-bottom: 14px;">// 05 — writing</div>
+            <h2>Lately on the blog<span style="color: var(--accent)">.</span></h2>
+          </div>
+          <a class="btn" href="/blog/">
+            <span>all posts</span> <span class="arr">→</span>
+          </a>
+        </div>
+        <div style="border-top: 1px solid var(--line);">
+          {posts.map(p => (
+            <a class="post-row" href={`/post/${p.frontmatter.path}`}>
+              <div class="post-row-date">{getShortDate(p.frontmatter.date)}</div>
+              <div>
+                <div class="post-row-title">{p.frontmatter.title}</div>
+                <div class="post-row-excerpt">{p.frontmatter.excerpt}</div>
+              </div>
+              <div class="post-row-meta">
+                <span style="color: var(--accent)">#{(p.frontmatter.tags?.[0] ?? "").toLowerCase()}</span>
+                <span>5 min</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </div>
 </Default>
+
+<script>
+  const el = document.getElementById("typed-cmd");
+  if (el) {
+    const cmd = "whoami --verbose";
+    let i = 0;
+    const t = setInterval(() => {
+      i++;
+      el.textContent = cmd.slice(0, i);
+      if (i >= cmd.length) clearInterval(t);
+    }, 60);
+  }
+</script>
+
+<style>
+  .practice-card:hover { border-color: var(--accent); }
+  #ai-card:hover { border-color: var(--warn) !important; }
+  #ai-card .btn:hover { border-color: var(--warn); color: var(--warn); }
+</style>

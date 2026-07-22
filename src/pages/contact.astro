@@ -1,54 +1,178 @@
 ---
 import Default from "@layouts/default.astro";
-const socials = [
-  {
-    label: "Twitter",
-    url: "https://twitter.com/ok9xnirab",
-  },
-  {
-    label: "GitHub",
-    url: "https://github.com/ok9xnirab",
-  },
-  {
-    label: "LinkedIn",
-    url: "https://www.linkedin.com/in/ok9xnirab/",
-  },
-  {
-    label: "Facebook",
-    url: "https://www.facebook.com/ok9xnirab",
-  },
-  {
-    label: "Instagram",
-    url: "https://www.instagram.com/ok9xnirab",
-  },
+
+const SOCIALS = [
+  { label: "github",   handle: "ok9xnirab", url: "https://github.com/ok9xnirab" },
+  { label: "linkedin", handle: "ok9xnirab", url: "https://bd.linkedin.com/in/ok9xnirab" },
+  { label: "dev.to",   handle: "ok9xnirab", url: "https://dev.to/ok9xnirab" },
+  { label: "twitter",  handle: "Ok9xNirab", url: "https://twitter.com/Ok9xNirab" },
 ];
 ---
 
-<Default title="Contact | Istiaq Nirab">
-  <div class="my-20 lg:max-w-screen-sm mx-10 lg:mx-auto">
-    <div class="mb-10">
-      <h4 class="text-2xl font-semibold text-gray-600 mb-2">Contact</h4>
-      <p class="text-sm font-sans text-gray-400">
-        Some of my social links here
-      </p>
-    </div>
-    <div class="font-sans">
-      <ul>
-        {
-          socials.map((social) => (
-            <li class="mb-4">
-              <a
-                href={social.url}
-                class="text-gray-600 hover:text-gray-800"
-                rel="noreferrer"
-                target="_blank"
-              >
-                {social.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+<Default title="Contact | Istiaq Nirab" description="Open for freelance plugin work, WooCommerce builds, and AI engineering projects.">
+  <div class="page">
+
+    <section style="padding-top: 72px; padding-bottom: 48px;">
+      <div class="wrap">
+        <div class="prompt-line">
+          <span class="pl-path">~/istiaq/contact</span>
+          <span class="pl-dollar">$</span>
+          <span class="pl-cmd">echo $HELLO</span>
+        </div>
+        <h1 style="font-size: clamp(40px, 7vw, 80px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; margin-bottom: 20px;">
+          Say hi<span style="color: var(--accent)">.</span>
+        </h1>
+        <p style="font-size: 16px; color: var(--fg-dim); max-width: 640px; line-height: 1.55;">
+          Open for freelance plugin work, WooCommerce builds, and the occasional
+          Laravel project. I usually reply within a day.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding-bottom: 80px;">
+      <div class="wrap">
+        <div style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr); gap: 48px; align-items: flex-start;">
+
+          <!-- Form -->
+          <div>
+            <div class="label" style="margin-bottom: 18px;">// drop a line</div>
+            <div id="form-success" style="display: none; border: 1px solid var(--accent); background: var(--accent-glow); padding: 28px; border-radius: 4px;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: var(--accent);">
+                <span style="width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: var(--bg); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;">✓</span>
+                <span style="font-weight: 600;">message queued</span>
+              </div>
+              <p style="color: var(--fg-dim); font-size: 13px; line-height: 1.6;">
+                Thanks — I'll reply shortly.
+              </p>
+              <button class="btn" style="margin-top: 20px;" id="send-another">
+                <span>send another</span>
+              </button>
+            </div>
+            <form id="contact-form" novalidate style="display: flex; flex-direction: column;">
+              <label class="field">
+                <span class="field-label">
+                  <span>name</span>
+                  <span class="field-error" id="err-name" style="display:none">! required</span>
+                </span>
+                <input type="text" name="name" placeholder="your name" id="f-name" />
+              </label>
+              <label class="field">
+                <span class="field-label">
+                  <span>email</span>
+                  <span class="field-error" id="err-email" style="display:none">! valid email required</span>
+                </span>
+                <input type="email" name="email" placeholder="you@domain.com" id="f-email" />
+              </label>
+              <label class="field">
+                <span class="field-label">
+                  <span>message</span>
+                  <span class="field-error" id="err-msg" style="display:none">! tell me a bit more (10+ chars)</span>
+                </span>
+                <textarea name="message" placeholder="tell me about your project..." rows={6} id="f-msg"></textarea>
+              </label>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 11px; color: var(--fg-mute);" id="char-count">0/2000</span>
+                <button type="submit" class="btn btn-primary">
+                  <span>./send.sh</span><span class="arr">→</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Sidebar -->
+          <div style="border: 1px solid var(--line); padding: 28px; background: var(--bg-2);">
+            <div class="label" style="margin-bottom: 18px;">// elsewhere</div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              {SOCIALS.map(s => (
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 13px; transition: padding-left 0.15s;"
+                  onmouseover="this.style.paddingLeft='8px'"
+                  onmouseout="this.style.paddingLeft='0'"
+                >
+                  <span style="color: var(--fg-dim);">{s.label}</span>
+                  <span style="color: var(--fg);">@{s.handle} →</span>
+                </a>
+              ))}
+            </div>
+            <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12px; color: var(--fg-mute); line-height: 1.7;">
+              <div><span style="color: var(--fg-dim);">$ TZ</span> &nbsp;= Asia/Dhaka (UTC+6)</div>
+              <div><span style="color: var(--fg-dim);">$ STATUS</span> &nbsp;= <span style="color: var(--accent);">available for new work</span></div>
+              <div><span style="color: var(--fg-dim);">$ FOCUS</span> &nbsp;= AI product engineering</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
   </div>
 </Default>
+
+<style>
+  @media (max-width: 720px) {
+    section:last-child .wrap > div {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const success = document.getElementById("form-success")!;
+  const sendAnother = document.getElementById("send-another")!;
+  const nameEl = document.getElementById("f-name") as HTMLInputElement;
+  const emailEl = document.getElementById("f-email") as HTMLInputElement;
+  const msgEl = document.getElementById("f-msg") as HTMLTextAreaElement;
+  const charCount = document.getElementById("char-count")!;
+
+  msgEl.addEventListener("input", () => {
+    charCount.textContent = `${msgEl.value.length}/2000`;
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    const nameErr = document.getElementById("err-name")!;
+    const emailErr = document.getElementById("err-email")!;
+    const msgErr = document.getElementById("err-msg")!;
+
+    nameErr.style.display = "none";
+    emailErr.style.display = "none";
+    msgErr.style.display = "none";
+    nameEl.style.borderColor = "";
+    emailEl.style.borderColor = "";
+    msgEl.style.borderColor = "";
+
+    if (!nameEl.value.trim()) {
+      nameErr.style.display = "inline";
+      nameEl.style.borderColor = "var(--pink)";
+      valid = false;
+    }
+    if (!emailEl.value || !/^\S+@\S+\.\S+$/.test(emailEl.value)) {
+      emailErr.style.display = "inline";
+      emailEl.style.borderColor = "var(--pink)";
+      valid = false;
+    }
+    if (!msgEl.value || msgEl.value.length < 10) {
+      msgErr.style.display = "inline";
+      msgEl.style.borderColor = "var(--pink)";
+      valid = false;
+    }
+
+    if (valid) {
+      form.style.display = "none";
+      success.style.display = "block";
+    }
+  });
+
+  sendAnother.addEventListener("click", () => {
+    form.reset();
+    charCount.textContent = "0/2000";
+    form.style.display = "flex";
+    success.style.display = "none";
+  });
+</script>

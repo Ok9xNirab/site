@@ -1,0 +1,148 @@
+---
+import Default from "@layouts/default.astro";
+
+const PLUGINS = [
+  { name: "Subscription for WooCommerce", slug: "subscription", version: "2.4.1", color: "#7ad9a1", tag: "recurring",   blurb: "A powerful plugin that enables recurring subscriptions on any WooCommerce product.", url: "https://wordpress.org/plugins/subscription/", img: "subscription-wp.png" },
+  { name: "Booking for WooCommerce", slug: "booking", version: "1.6.3", color: "#7ab6e8", tag: "scheduling", blurb: "Show available dates and time slots in a dropdown — take bookings for products and services.", url: "https://wordpress.org/plugins/wc-booking/", img: "booking-wp.png" },
+  { name: "Pre Order Addon for WooCommerce", slug: "pre-order", version: "2.0.8", color: "#e87aa8", tag: "commerce",    blurb: "Allow customers to pre-order from your store with advance order and backorder support.", url: "https://wordpress.org/plugins/wc-pre-order/", img: "pre-order-wp.png" },
+  { name: "PDF Invoices & Packing Slips", slug: "invoice", version: "1.3.2", color: "#f0b95a", tag: "documents",  blurb: "Create, print and email PDF invoices and packing slips for WooCommerce orders automatically.", url: "https://wordpress.org/plugins/pdf-invoices-and-packing-slips/", img: "invoice-wp.png" },
+  { name: "Advance Coupons for WooCommerce", slug: "coupon", version: "1.4.0", color: "#a78bfa", tag: "discounts",  blurb: "Gift vouchers, store credits, and spend-based discounts — coupon logic beyond stock WooCommerce.", url: "https://wordpress.org/plugins/advance-coupons-for-woocommerce/", img: "coupon-wp.png" },
+  { name: "Bulk Product Selling", slug: "bpselling", version: "1.2.1", color: "#7ad9a1", tag: "bundles",    blurb: "Sell many products as a single grouped item with one shared price — great for bundles.", url: "https://wordpress.org/plugins/bulk-products-selling/", img: "bpselling-wp.png" },
+  { name: "Checkout Field Customizer", slug: "cfc", version: "1.1.7", color: "#7ab6e8", tag: "checkout",   blurb: "Add, remove, and rearrange checkout fields with a clean drag-and-drop editor.", url: "https://wordpress.org/plugins/checkout-field-customizer/", img: "cfc-wp.png" },
+  { name: "WC SMS Notification", slug: "sms", version: "1.0.9", color: "#e87aa8", tag: "messaging",  blurb: "Automated SMS notifications for WooCommerce order status changes — admin and customer.", url: "https://wordpress.org/plugins/wc-sms-notification/", img: "sms-wp.png" },
+  { name: "Social Sharing Button", slug: "social", version: "1.0.5", color: "#f0b95a", tag: "sharing",    blurb: "Lightweight social share buttons for product pages — no external trackers.", url: "https://wordpress.org/plugins/product-sharing-buttons/", img: "social-wp.png" },
+];
+
+const allTags = ["all", ...Array.from(new Set(PLUGINS.map(p => p.tag)))];
+---
+
+<Default title="Plugins | Istiaq Nirab" description="Nine WooCommerce plugins on wordpress.org — open-source, production-ready, actively maintained.">
+  <div class="page">
+
+    <section style="padding-top: 72px; padding-bottom: 48px;">
+      <div class="wrap">
+        <div class="prompt-line">
+          <span class="pl-path">~/istiaq/plugins</span>
+          <span class="pl-dollar">$</span>
+          <span class="pl-cmd">ls -la --sort=installs</span>
+        </div>
+        <h1 style="font-size: clamp(40px, 7vw, 80px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; margin-bottom: 20px;">
+          Plugins<span style="color: var(--accent)">.</span>
+        </h1>
+        <p style="font-size: 16px; color: var(--fg-dim); max-width: 640px; line-height: 1.55;">
+          Nine plugins live on wordpress.org, used by thousands of WooCommerce stores
+          in production. All open-source, all maintained.
+        </p>
+      </div>
+    </section>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <div class="wrap filter-bar-inner">
+        <div style="display: flex; gap: 4px; flex-wrap: wrap;" id="tag-filters">
+          {allTags.map(t => (
+            <button
+              class={`filter-btn${t === "all" ? " active" : ""}`}
+              data-filter={t}
+            >
+              {t === "all" ? "* all" : `# ${t}`}
+            </button>
+          ))}
+        </div>
+        <div class="grep-wrap">
+          <span>grep:</span>
+          <input
+            class="grep-input"
+            id="grep-input"
+            type="text"
+            placeholder="filter..."
+            autocomplete="off"
+          />
+        </div>
+      </div>
+    </div>
+
+    <section style="padding-bottom: 48px;">
+      <div class="wrap">
+        <div style="margin-bottom: 14px; font-size: 11px; color: var(--fg-mute);" id="match-count">
+          → {PLUGINS.length} of {PLUGINS.length} matches
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px;" id="plugins-grid">
+          {PLUGINS.map(p => (
+            <a
+              class="plugin-card"
+              href={p.url}
+              target="_blank"
+              rel="noreferrer"
+              data-tag={p.tag}
+              data-name={p.name.toLowerCase()}
+              data-blurb={p.blurb.toLowerCase()}
+            >
+              <div class="plugin-thumb">
+                <div style={`position: absolute; inset: 0; background: repeating-linear-gradient(135deg, ${p.color}14, ${p.color}14 8px, transparent 8px, transparent 16px);`}></div>
+                <div class="plugin-chrome">
+                  <span class="plugin-chrome-dot"></span>
+                  <span class="plugin-chrome-dot"></span>
+                  <span class="plugin-chrome-dot" style={`background: ${p.color};`}></span>
+                  <span class="plugin-chrome-label">wp-admin / plugins / {p.slug}</span>
+                </div>
+                <div class="plugin-badge">
+                  <div class="plugin-badge-tag">./{p.tag}</div>
+                  <div class="plugin-badge-slug" style={`color: ${p.color};`}>{p.slug}.zip</div>
+                </div>
+                <div class="plugin-version">v{p.version}</div>
+              </div>
+              <div class="plugin-body">
+                <div class="plugin-name">{p.name}</div>
+                <p class="plugin-blurb">{p.blurb}</p>
+                <div class="plugin-meta" style="justify-content: flex-end;">
+                  <span class="plugin-meta-link" style="color: var(--fg-dim); transition: color 0.15s;">wp.org →</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Default>
+
+<script>
+  const total = document.querySelectorAll(".plugin-card").length;
+  const cards = Array.from(document.querySelectorAll<HTMLElement>(".plugin-card"));
+  const countEl = document.getElementById("match-count")!;
+  const grepInput = document.getElementById("grep-input") as HTMLInputElement;
+  const filterBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".filter-btn"));
+
+  let activeTag = "all";
+  let query = "";
+
+  function update() {
+    let visible = 0;
+    cards.forEach(card => {
+      const tag = card.dataset.tag ?? "";
+      const name = card.dataset.name ?? "";
+      const blurb = card.dataset.blurb ?? "";
+      const tagMatch = activeTag === "all" || tag === activeTag;
+      const qMatch = query === "" || name.includes(query) || blurb.includes(query);
+      const show = tagMatch && qMatch;
+      card.style.display = show ? "" : "none";
+      if (show) visible++;
+    });
+    countEl.textContent = `→ ${visible} of ${total} ${visible === 1 ? "match" : "matches"}`;
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeTag = btn.dataset.filter ?? "all";
+      filterBtns.forEach(b => b.classList.toggle("active", b === btn));
+      update();
+    });
+  });
+
+  grepInput.addEventListener("input", () => {
+    query = grepInput.value.toLowerCase();
+    update();
+  });
+</script>

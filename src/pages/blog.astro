@@ -1,17 +1,89 @@
 ---
-// Use Astro.glob() to fetch all posts, and then sort them by date.
-const posts = (await Astro.glob("./../../posts/**/*.{md,mdx}"))
-  .sort(
-    (a, b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date)
-  )
-  .filter((post) => !post.frontmatter.draft);
-
 import Default from "@layouts/default.astro";
-import Item from "@components/posts/Item.astro";
+import { getShortDate } from "@utils/index";
+
+const posts = (await Astro.glob("./../../posts/**/*.{md,mdx}"))
+  .sort((a, b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date))
+  .filter((p) => !p.frontmatter.draft);
+
+const allTags = ["all", ...Array.from(new Set(posts.flatMap(p => p.frontmatter.tags ?? [])))];
 ---
 
-<Default title="Blog | Istiaq Nirab">
-  <div class="my-20 lg:max-w-screen-sm mx-auto">
-    {posts.map((post) => <Item {...post.frontmatter} />)}
+<Default title="Blog | Istiaq Nirab" description="Notes on WordPress, WooCommerce, Laravel, and the bits of full-stack development worth writing down.">
+  <div class="page">
+
+    <section style="padding-top: 72px; padding-bottom: 32px;">
+      <div class="wrap">
+        <div class="prompt-line">
+          <span class="pl-path">~/istiaq/blog</span>
+          <span class="pl-dollar">$</span>
+          <span class="pl-cmd">cat *.md | sort -r</span>
+        </div>
+        <h1 style="font-size: clamp(40px, 7vw, 80px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; margin-bottom: 20px;">
+          Writing<span style="color: var(--accent)">.</span>
+        </h1>
+        <p style="font-size: 16px; color: var(--fg-dim); max-width: 640px; line-height: 1.55;">
+          Notes on WordPress, WooCommerce, Laravel, and the bits of full-stack development
+          I want to remember in six months.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding-bottom: 48px;">
+      <div class="wrap">
+        <div style="display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap;" id="tag-filters">
+          {allTags.map(t => (
+            <button
+              class={`filter-btn${t === "all" ? " active" : ""}`}
+              data-filter={t}
+            >
+              {t === "all" ? "* all" : `# ${t.toLowerCase()}`}
+            </button>
+          ))}
+        </div>
+        <div style="border-top: 1px solid var(--line);" id="posts-list">
+          {posts.map(p => (
+            <a
+              class="post-row"
+              href={`/post/${p.frontmatter.path}`}
+              data-tags={JSON.stringify(p.frontmatter.tags ?? [])}
+            >
+              <div class="post-row-date">{getShortDate(p.frontmatter.date)}</div>
+              <div>
+                <div class="post-row-title">{p.frontmatter.title}</div>
+                <div class="post-row-excerpt">{p.frontmatter.excerpt}</div>
+              </div>
+              <div class="post-row-meta">
+                <span style="color: var(--accent)">#{(p.frontmatter.tags?.[0] ?? "").toLowerCase()}</span>
+                <span>5 min</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
   </div>
 </Default>
+
+<script>
+  const rows = Array.from(document.querySelectorAll<HTMLElement>(".post-row"));
+  const filterBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".filter-btn"));
+  let activeTag = "all";
+
+  function update() {
+    rows.forEach(row => {
+      const tags: string[] = JSON.parse(row.dataset.tags ?? "[]");
+      const show = activeTag === "all" || tags.includes(activeTag);
+      row.style.display = show ? "" : "none";
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeTag = btn.dataset.filter ?? "all";
+      filterBtns.forEach(b => b.classList.toggle("active", b === btn));
+      update();
+    });
+  });
+</script>

@@ -27,51 +27,71 @@ const { Content } = post;
   description={post.frontmatter.excerpt}
   image={post.frontmatter.image}
 >
-  <div class="my-20 lg:max-w-screen-md mx-6 lg:mx-auto leading-6">
-    <div class="mb-6">
-      <h3 class="text-xl lg:text-4xl font-bold text-gray-700 mb-6">
-        {post.frontmatter.title}
-      </h3>
-      <div class="flex items-center text-sm justify-between">
-        <div class="text-gray-500">
-          {getFormattedDate(post.frontmatter.date)}
-        </div>
-        <div>
-          {
-            post.frontmatter.tags.map((tag: String) => (
-              <a class="mr-3" href={`/tag/${tag}`}>
+  <div class="page">
+    <section style="padding-top: 72px; padding-bottom: 80px;">
+      <div class="wrap" style="max-width: 780px;">
+
+        <!-- Back link -->
+        <a href="/blog/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--fg-mute); margin-bottom: 40px; transition: color 0.15s;"
+          onmouseover="this.style.color='var(--accent)'"
+          onmouseout="this.style.color='var(--fg-mute)'"
+        >
+          ← back to writing
+        </a>
+
+        <!-- Post header -->
+        <div style="margin-bottom: 48px;">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+            {post.frontmatter.tags?.map((tag: string) => (
+              <a
+                href={`/tag/${tag}`}
+                style="font-size: 11px; color: var(--accent); padding: 4px 10px; border: 1px solid rgba(37,99,235,0.3); border-radius: 3px; background: var(--accent-glow); transition: background 0.15s;"
+              >
                 #{tag}
               </a>
-            ))
-          }
-        </div>
-      </div>
-      <div
-        class="mx-auto prose prose-sm lg:prose-lg mt-12 font-light text-[darkslategray] prose-blockquote:not-italic prose-blockquote:font-normal prose-blockquote:text-sm"
-      >
-        <Content />
-      </div>
-      <div>
-        <hr class="my-6" />
-        <div class="flex items-start bg-gray-100 p-3 border rounded">
-          <div class="w-48 p-1 border">
-            <img src="/me-classic.jpeg" alt="me" />
+            ))}
           </div>
-          <div class="ml-3">
-            <h4 class="font-bold text-xl">Istiaq Nirab</h4>
-            <p class="text-gray-400 text-xs">Full stack web developer</p>
-            <p class="text-gray-700 text-sm my-2 leading-6">
-              I’m a WordPress Plugin developer & have some experienced with
-              WooCommerce . Last couple of years, I developed 10+ WooCommerce
-              extensions & also did some custom solutions . I'm ready for served
-              any WordPress & WooCommerce related custom solutions.
-            </p>
-            <a href="https://twitter.com/ok9xnirab" target="_blank">
-              Follow me on twitter
-            </a>
+          <h1 style="font-size: clamp(28px, 4vw, 48px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; color: var(--fg); margin-bottom: 20px;">
+            {post.frontmatter.title}
+          </h1>
+          <div style="display: flex; align-items: center; gap: 20px; font-size: 12px; color: var(--fg-mute);">
+            <span>{getFormattedDate(post.frontmatter.date)}</span>
+            <span style="width: 1px; height: 12px; background: var(--line);"></span>
+            <span>Istiaq Nirab</span>
           </div>
         </div>
+
+        <!-- Divider -->
+        <div style="height: 1px; background: var(--line); margin-bottom: 48px;"></div>
+
+        <!-- Content -->
+        <div class="prose-terminal">
+          <Content />
+        </div>
+
+        <!-- Author bio -->
+        <div style="margin-top: 64px; border-top: 1px solid var(--line); padding-top: 32px;">
+          <div style="border: 1px solid var(--line); background: var(--bg-2); padding: 24px; display: flex; gap: 20px; align-items: flex-start;">
+            <div style="flex-shrink: 0;">
+              <div style="width: 56px; height: 56px; border: 1px solid var(--line); overflow: hidden; border-radius: 3px;">
+                <img src="/me-classic.jpeg" alt="Istiaq Nirab" style="width: 100%; height: 100%; object-fit: cover;" />
+              </div>
+            </div>
+            <div>
+              <div style="font-weight: 600; font-size: 15px; color: var(--fg); margin-bottom: 4px;">Istiaq Nirab</div>
+              <div style="font-size: 11px; color: var(--fg-mute); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">WordPress Plugin Dev · AI Engineer</div>
+              <p style="font-size: 13px; color: var(--fg-dim); line-height: 1.6; margin-bottom: 12px;">
+                Five-plus years shipping WooCommerce plugins used by thousands of stores. Currently building AI-powered products with LLMs, RAG, and Python.
+              </p>
+              <a href="https://twitter.com/Ok9xNirab" target="_blank" rel="noreferrer"
+                style="font-size: 12px; color: var(--accent);">
+                @Ok9xNirab →
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
+    </section>
   </div>
 </Default>
