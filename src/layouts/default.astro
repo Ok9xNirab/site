@@ -11,7 +11,7 @@ import Header from "../components/layouts/Header.astro";
 const { title, description, image } = Astro.props as Props;
 
 const defaultDescription =
-  "Istiaq Nirab — WordPress Plugin Developer & AI Engineer. 9 plugins on wordpress.org, building toward AI product engineering.";
+  "Istiaq Nirab — full stack + AI engineer. WordPress/WooCommerce plugins on wordpress.org, and product engineering with Django, Laravel, Next.js and AI.";
 const defaultImg = "/me.jpeg";
 const url = Astro.request.url;
 ---
@@ -49,7 +49,7 @@ const url = Astro.request.url;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -58,18 +58,16 @@ const url = Astro.request.url;
     <main>
       <slot />
     </main>
-    <footer>
-      <div class="wrap">
-        <div>
-          <span style="color: var(--fg-dim)">©</span> 2026 istiaq nirab &nbsp;·&nbsp;
-          <span style="color: var(--fg-dim)">built with</span> php, astro, ☕
-        </div>
-        <div style="display: flex; gap: 18px;">
+    <footer class="site">
+      <div class="wrap fin">
+        <span>© 2026 Istiaq Nirab</span>
+        <span class="sociallist">
           <a href="https://github.com/ok9xnirab" target="_blank" rel="noreferrer">github</a>
           <a href="https://bd.linkedin.com/in/ok9xnirab" target="_blank" rel="noreferrer">linkedin</a>
           <a href="https://dev.to/ok9xnirab" target="_blank" rel="noreferrer">dev.to</a>
-          <a href="https://twitter.com/Ok9xNirab" target="_blank" rel="noreferrer">twitter</a>
-        </div>
+          <a href="https://twitter.com/Ok9xNirab" target="_blank" rel="noreferrer">x / twitter</a>
+        </span>
+        <span>Dhaka, BD · GMT+6</span>
       </div>
     </footer>
 
@@ -79,9 +77,12 @@ const url = Astro.request.url;
         if (tag === "INPUT" || tag === "TEXTAREA") return;
         const map: Record<string, string> = {
           "1": "/",
-          "2": "/plugins/",
+          "2": "/work/",
           "3": "/blog/",
-          "4": "/contact/",
+          "4": "/curated/",
+          "5": "/plugins/",
+          "6": "/about/",
+          "7": "/contact/",
         };
         if (map[e.key]) window.location.href = map[e.key];
       });

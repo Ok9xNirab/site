@@ -1,0 +1,12 @@
+---
+export interface Props {
+  right?: string;
+}
+const { right } = Astro.props as Props;
+---
+
+<div class="eyebrow">
+  <span><slot /></span>
+  <span class="rule"></span>
+  {right && <span>{right}</span>}
+</div>

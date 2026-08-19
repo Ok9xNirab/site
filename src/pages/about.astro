@@ -1,0 +1,59 @@
+---
+import Default from "@layouts/default.astro";
+import Contact from "@components/Contact.astro";
+import { PROFILE } from "@data/site.js";
+---
+
+<Default title="About | Istiaq Nirab" description={PROFILE.intro}>
+  <div class="page">
+    <section class="hero" style="padding-bottom: 40px;">
+      <div class="wrap">
+        <div class="abouttop" style="display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 56px; align-items: start;">
+          <div>
+            <p class="mono" style="margin-bottom: 26px;">About</p>
+            <h1 class="h2">I like the parts of a product<br />that <span class="it">nobody volunteers for</span>.</h1>
+            <p class="lead" style="margin-top: 28px;">{PROFILE.intro}</p>
+          </div>
+          <div>
+            <div class="slot" style="width: 100%; height: 360px;">
+              <span class="slot-ph">portrait photo</span>
+            </div>
+            <p class="figcaption">{PROFILE.name} · {PROFILE.place}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec-t" style="padding-top: 0;">
+      <div class="wrap">
+        <div class="block">
+          <span class="bt">Approach</span>
+          <div style="display: grid; gap: 18px;">
+            <p class="body">Five-plus years in, most of my work has been the same shape: a WooCommerce store or a product that works until it doesn't, and a team that needs it to keep working while it changes underneath them. I take those.</p>
+            <p class="body">On WordPress I picked the boring, well-documented option on purpose — hooks over overrides, the Settings API over a hand-rolled admin screen, and enough tests that a core update doesn't become a support ticket.</p>
+            <p class="body">On the AI side I care about the unglamorous half: retrieval quality, evals, guardrails, and what happens when the model is wrong. A demo takes an afternoon; a product takes those.</p>
+          </div>
+        </div>
+        <div class="block">
+          <span class="bt">Principles</span>
+          <ul class="dash">
+            <li>Ship a slice that works before a system that might.</li>
+            <li>Make failures visible instead of preventing them from ever being mentioned.</li>
+            <li>Data model first. Interfaces are easier to change than schemas.</li>
+            <li>If a rule matters, it lives in one place and has tests.</li>
+            <li>The person on support should be able to read what happened.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <span class="bt">Selected clients</span>
+          <div class="stackg">
+            <div><h4>Sectors</h4><ul><li>Retail &amp; commerce</li><li>SaaS</li><li>Publishing</li><li>HR &amp; fintech</li></ul></div>
+            <div><h4>Engagements</h4><ul><li>Plugin development</li><li>Greenfield builds</li><li>AI feature teams</li><li>Architecture review</li></ul></div>
+            <div><h4>Ways to work</h4><ul><li>Fixed-scope project</li><li>Embedded contract</li><li>Advisory, part-time</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <Contact />
+  </div>
+</Default>

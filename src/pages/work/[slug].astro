@@ -1,0 +1,106 @@
+---
+import Default from "@layouts/default.astro";
+import Slot from "@components/Slot.astro";
+import Contact from "@components/Contact.astro";
+import { CASES } from "@data/cases.js";
+
+export async function getStaticPaths() {
+  return CASES.map((c) => ({
+    params: { slug: c.slug },
+    props: { c },
+  }));
+}
+
+const { c } = Astro.props as { c: (typeof CASES)[number] };
+const i = CASES.findIndex((x) => x.slug === c.slug);
+const next = CASES[(i + 1) % CASES.length];
+---
+
+<Default title={`${c.title} | Istiaq Nirab`} description={c.blurb}>
+  <div class="page">
+    <section class="case-hero">
+      <div class="wrap">
+        <a class="backlink" href="/work/">← Case studies</a>
+        <div style="display: flex; gap: 14px; align-items: baseline; margin: 34px 0 18px; flex-wrap: wrap;">
+          <span class="mono">{c.n}</span>
+          <span class="chip chip-a">{c.category}</span>
+          <span class="mono">{c.year}</span>
+        </div>
+        <h1 class="display" style="font-size: clamp(40px,6.6vw,86px);">{c.title}</h1>
+        <p class="h3" style="color: var(--ink2); margin-top: 16px; font-weight: 400;">{c.sub}</p>
+        <p class="lead" style="margin-top: 26px;">{c.blurb}</p>
+        <div class="metrics">
+          {c.metrics.map((m) => (
+            <div><div class="mv">{m.v}</div><div class="ml">{m.l}</div></div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-bottom: 24px;">
+      <div class="wrap"><Slot cap={c.gallery[0].cap} ratio="16 / 9" /></div>
+    </section>
+
+    <section style="padding-top: 48px;">
+      <div class="wrap">
+        <div class="block" style="border-top: 0;">
+          <span class="bt">Overview</span>
+          <div>
+            <p class="lead" style="max-width: 30em;">{c.overview}</p>
+            <div class="stackg" style="margin-top: 44px; gap: 28px;">
+              <div><h4>Role</h4><ul><li>{c.role}</li></ul></div>
+              <div><h4>Timeline</h4><ul><li>{c.duration}</li></ul></div>
+              <div><h4>Team</h4><ul><li>{c.team}</li></ul></div>
+              <div><h4>Stack</h4><ul>{c.stack.map((s: string) => <li>{s}</li>)}</ul></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <span class="bt">The problem</span>
+          <ul class="dash">{c.problem.map((p: string) => <li>{p}</li>)}</ul>
+        </div>
+
+        <div class="block">
+          <span class="bt">Approach</span>
+          <ol class="steps">
+            {c.approach.map((a: { h: string; p: string }) => (
+              <li><h4><span>{a.h}</span></h4><p class="body" style="padding-left: 34px;">{a.p}</p></li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 28px 0 8px;">
+      <div class="wrap">
+        <div class="two">
+          {c.gallery.slice(1).map((g: { id: string; cap: string }) => <Slot cap={g.cap} ratio="4 / 3" />)}
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top: 48px;">
+      <div class="wrap">
+        <div class="block">
+          <span class="bt">Outcome</span>
+          <div>
+            <p class="lead" style="max-width: 30em;">{c.results}</p>
+            <div style="display: flex; gap: 22px; margin-top: 34px; flex-wrap: wrap;">
+              {c.links.map((l: { label: string; url: string }) => (
+                <a href={l.url} class="mono" style="color: var(--ink);">{l.label} <span class="arrow">↗</span></a>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div class="nextcase">
+          <span class="mono">Next case study</span>
+          <a href={`/work/${next.slug}/`} style="text-align: right;">
+            <span class="h3">{next.title}</span> <span class="mono" style="margin-left: 10px;">{next.category} <span class="arrow">→</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <Contact />
+  </div>
+</Default>

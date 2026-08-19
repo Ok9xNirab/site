@@ -1,0 +1,14 @@
+---
+export interface Props {
+  cap: string;
+  ratio?: string;
+}
+const { cap, ratio = "16 / 10" } = Astro.props as Props;
+---
+
+<figure class="figure">
+  <div class="slot" style={`aspect-ratio: ${ratio}`}>
+    <span class="slot-ph">{cap}</span>
+  </div>
+  <figcaption class="figcaption">{cap}</figcaption>
+</figure>

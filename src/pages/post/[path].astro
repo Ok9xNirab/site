@@ -1,6 +1,8 @@
 ---
 import Default from "@layouts/default.astro";
-import { getFormattedDate } from "@utils/index";
+import Eyebrow from "@components/Eyebrow.astro";
+import Contact from "@components/Contact.astro";
+import { getFormattedDate, getShortDate } from "@utils/index";
 
 export async function getStaticPaths() {
   const posts = (await Astro.glob("./../../../posts/**/*.{md,mdx}")).filter(
@@ -20,78 +22,79 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = post;
+
+const allPosts = (await Astro.glob("./../../../posts/**/*.{md,mdx}"))
+  .filter((p) => !p.frontmatter.draft)
+  .sort((a, b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date));
+const more = allPosts.filter((p) => p.frontmatter.path !== post.frontmatter.path).slice(0, 3);
 ---
 
-<Default
-  title={post.frontmatter.title}
-  description={post.frontmatter.excerpt}
-  image={post.frontmatter.image}
->
+<Default title={post.frontmatter.title} description={post.frontmatter.excerpt} image={post.frontmatter.image}>
   <div class="page">
-    <section style="padding-top: 72px; padding-bottom: 80px;">
-      <div class="wrap" style="max-width: 780px;">
+    <section class="post-hero">
+      <div class="wrap-n">
+        <a class="backlink" href="/blog/">← Writing</a>
+        <div style="display: flex; gap: 14px; align-items: baseline; margin: 34px 0 20px; flex-wrap: wrap;">
+          {(post.frontmatter.tags ?? []).map((tag: string) => (
+            <a href={`/tag/${tag}`} class="chip chip-a">{tag}</a>
+          ))}
+          <span class="mono">{getFormattedDate(post.frontmatter.date)}</span>
+        </div>
+        <h1 class="h2" style="font-size: clamp(34px,5.4vw,58px);">{post.frontmatter.title}</h1>
+        {post.frontmatter.excerpt && <p class="lead" style="margin-top: 22px; max-width: 36em;">{post.frontmatter.excerpt}</p>}
+      </div>
+    </section>
 
-        <!-- Back link -->
-        <a href="/blog/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--fg-mute); margin-bottom: 40px; transition: color 0.15s;"
-          onmouseover="this.style.color='var(--accent)'"
-          onmouseout="this.style.color='var(--fg-mute)'"
-        >
-          ← back to writing
-        </a>
+    <section class="sec sec-t" style="padding-top: 56px;">
+      <div class="wrap-n post-body">
+        <div class="prose-editorial">
+          <Content />
+        </div>
+        <div class="post-foot">
+          <div class="post-author">
+            <span class="av"><img src="/me-classic.jpeg" alt="Istiaq Nirab" /></span>
+            <div>
+              <div class="an">Istiaq Nirab</div>
+              <div class="ar">Full stack + AI engineer</div>
+            </div>
+          </div>
+          <div class="share-row">
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.frontmatter.title)}`} target="_blank" rel="noreferrer">X / Twitter</a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=https://nirab.me/post/${post.frontmatter.path}`} target="_blank" rel="noreferrer">Facebook</a>
+            <a href={`https://news.ycombinator.com/submitlink?t=${encodeURIComponent(post.frontmatter.title)}`} target="_blank" rel="noreferrer">Hacker News</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Post header -->
-        <div style="margin-bottom: 48px;">
-          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
-            {post.frontmatter.tags?.map((tag: string) => (
-              <a
-                href={`/tag/${tag}`}
-                style="font-size: 11px; color: var(--accent); padding: 4px 10px; border: 1px solid rgba(37,99,235,0.3); border-radius: 3px; background: var(--accent-glow); transition: background 0.15s;"
-              >
-                #{tag}
+    <section class="sec sec-t">
+      <div class="wrap-n">
+        <Eyebrow>Discussion</Eyebrow>
+        <p class="body" style="margin-bottom: 20px;">Comments run on giscus, backed by GitHub Discussions — sign in with GitHub to reply.</p>
+        <div class="commentbox">
+          <span class="mono">giscus comment embed</span>
+          <span class="mono mute" style="margin-top: 6px;">{"<script src=\"https://giscus.app/client.js\" data-repo=\"...\" data-mapping=\"pathname\" async></script>"}</span>
+        </div>
+      </div>
+    </section>
+
+    {more.length > 0 && (
+      <section style="padding: 0 0 88px;">
+        <div class="wrap-post">
+          <Eyebrow>More posts</Eyebrow>
+          <div class="post-carousel">
+            {more.map((x) => (
+              <a class="post-card" href={`/post/${x.frontmatter.path}`}>
+                <span class="chip chip-a">{(x.frontmatter.tags ?? [])[0] ?? "post"}</span>
+                <h3 class="h3" style="font-size: 19px;">{x.frontmatter.title}</h3>
+                <p class="body" style="font-size: 13.5px;">{x.frontmatter.excerpt}</p>
+                <span class="mono mute" style="margin-top: auto;">{getShortDate(x.frontmatter.date)}</span>
               </a>
             ))}
           </div>
-          <h1 style="font-size: clamp(28px, 4vw, 48px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; color: var(--fg); margin-bottom: 20px;">
-            {post.frontmatter.title}
-          </h1>
-          <div style="display: flex; align-items: center; gap: 20px; font-size: 12px; color: var(--fg-mute);">
-            <span>{getFormattedDate(post.frontmatter.date)}</span>
-            <span style="width: 1px; height: 12px; background: var(--line);"></span>
-            <span>Istiaq Nirab</span>
-          </div>
         </div>
-
-        <!-- Divider -->
-        <div style="height: 1px; background: var(--line); margin-bottom: 48px;"></div>
-
-        <!-- Content -->
-        <div class="prose-terminal">
-          <Content />
-        </div>
-
-        <!-- Author bio -->
-        <div style="margin-top: 64px; border-top: 1px solid var(--line); padding-top: 32px;">
-          <div style="border: 1px solid var(--line); background: var(--bg-2); padding: 24px; display: flex; gap: 20px; align-items: flex-start;">
-            <div style="flex-shrink: 0;">
-              <div style="width: 56px; height: 56px; border: 1px solid var(--line); overflow: hidden; border-radius: 3px;">
-                <img src="/me-classic.jpeg" alt="Istiaq Nirab" style="width: 100%; height: 100%; object-fit: cover;" />
-              </div>
-            </div>
-            <div>
-              <div style="font-weight: 600; font-size: 15px; color: var(--fg); margin-bottom: 4px;">Istiaq Nirab</div>
-              <div style="font-size: 11px; color: var(--fg-mute); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">WordPress Plugin Dev · AI Engineer</div>
-              <p style="font-size: 13px; color: var(--fg-dim); line-height: 1.6; margin-bottom: 12px;">
-                Five-plus years shipping WooCommerce plugins used by thousands of stores. Currently building AI-powered products with LLMs, RAG, and Python.
-              </p>
-              <a href="https://twitter.com/Ok9xNirab" target="_blank" rel="noreferrer"
-                style="font-size: 12px; color: var(--accent);">
-                @Ok9xNirab →
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
+      </section>
+    )}
+    <Contact />
   </div>
 </Default>

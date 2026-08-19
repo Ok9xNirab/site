@@ -27,48 +27,37 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 
 import Default from "@layouts/default.astro";
+import Contact from "@components/Contact.astro";
 import { getShortDate } from "@utils/index";
 ---
 
 <Default title={`#${tag} | Istiaq Nirab`}>
   <div class="page">
-    <section style="padding-top: 72px; padding-bottom: 80px;">
+    <section class="hero" style="padding-bottom: 40px;">
       <div class="wrap">
-        <div class="prompt-line">
-          <span class="pl-path">~/istiaq/blog</span>
-          <span class="pl-dollar">$</span>
-          <span class="pl-cmd">grep -r "#{tag}" *.md</span>
-        </div>
-        <h1 style="font-size: clamp(40px, 7vw, 80px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; margin-bottom: 20px;">
-          <span style="color: var(--accent)">#</span>{tag}<span style="color: var(--accent)">.</span>
-        </h1>
-        <p style="font-size: 14px; color: var(--fg-mute); margin-bottom: 40px;">
-          → {posts.length} {posts.length === 1 ? "post" : "posts"} tagged with #{tag}
-        </p>
-
-        <div style="border-top: 1px solid var(--line);">
+        <a class="backlink" href="/blog/">← Writing</a>
+        <p class="mono" style="margin: 34px 0 18px;">Writing · {posts.length} {posts.length === 1 ? "post" : "posts"}</p>
+        <h1 class="h2"><span class="it">#</span>{tag}</h1>
+      </div>
+    </section>
+    <section style="padding-bottom: 96px;">
+      <div class="wrap">
+        <div class="blogrows">
           {posts.map((p: any) => (
-            <a class="post-row" href={`/post/${p.frontmatter.path}`}>
-              <div class="post-row-date">{getShortDate(p.frontmatter.date)}</div>
-              <div>
-                <div class="post-row-title">{p.frontmatter.title}</div>
-                <div class="post-row-excerpt">{p.frontmatter.excerpt}</div>
+            <a class="brow" href={`/post/${p.frontmatter.path}`}>
+              <div class="bt">
+                <span class="chip chip-a">{(p.frontmatter.tags ?? [])[0] ?? tag}</span>
+                <span class="mono" style="margin-top: 10px;">{getShortDate(p.frontmatter.date)}</span>
               </div>
-              <div class="post-row-meta">
-                <span style="color: var(--accent)">#{(p.frontmatter.tags?.[0] ?? "").toLowerCase()}</span>
-                <span>5 min</span>
+              <div>
+                <h3 class="h3" style="font-size: clamp(20px,2vw,26px);">{p.frontmatter.title}</h3>
+                <p class="body" style="margin-top: 10px; max-width: 40em;">{p.frontmatter.excerpt}</p>
               </div>
             </a>
           ))}
         </div>
-
-        <div style="margin-top: 40px;">
-          <a href="/blog/" style="font-size: 12px; color: var(--fg-mute); transition: color 0.15s;"
-            onmouseover="this.style.color='var(--accent)'"
-            onmouseout="this.style.color='var(--fg-mute)'"
-          >← all posts</a>
-        </div>
       </div>
     </section>
+    <Contact />
   </div>
 </Default>

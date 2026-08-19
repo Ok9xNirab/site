@@ -1,89 +1,93 @@
 ---
 import Default from "@layouts/default.astro";
+import Contact from "@components/Contact.astro";
 import { getShortDate } from "@utils/index";
 
 const posts = (await Astro.glob("./../../posts/**/*.{md,mdx}"))
   .sort((a, b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date))
   .filter((p) => !p.frontmatter.draft);
 
-const allTags = ["all", ...Array.from(new Set(posts.flatMap(p => p.frontmatter.tags ?? [])))];
+const allTags = Array.from(new Set(posts.flatMap((p) => p.frontmatter.tags ?? [])));
 ---
 
 <Default title="Blog | Istiaq Nirab" description="Notes on WordPress, WooCommerce, Laravel, and the bits of full-stack development worth writing down.">
   <div class="page">
-
-    <section style="padding-top: 72px; padding-bottom: 32px;">
+    <section class="hero" style="padding-bottom: 40px;">
       <div class="wrap">
-        <div class="prompt-line">
-          <span class="pl-path">~/istiaq/blog</span>
-          <span class="pl-dollar">$</span>
-          <span class="pl-cmd">cat *.md | sort -r</span>
-        </div>
-        <h1 style="font-size: clamp(40px, 7vw, 80px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; margin-bottom: 20px;">
-          Writing<span style="color: var(--accent)">.</span>
-        </h1>
-        <p style="font-size: 16px; color: var(--fg-dim); max-width: 640px; line-height: 1.55;">
-          Notes on WordPress, WooCommerce, Laravel, and the bits of full-stack development
-          I want to remember in six months.
-        </p>
+        <p class="mono" style="margin-bottom: 26px;">Writing · {posts.length} posts</p>
+        <h1 class="h2">Notes on WordPress, WooCommerce<br />and the bits <span class="it">worth remembering</span>.</h1>
+        <p class="lead" style="margin-top: 26px;">Plugin edge cases, debugging stories, and things I tried that may or may not have worked.</p>
       </div>
     </section>
-
-    <section style="padding-bottom: 48px;">
+    <section style="padding-bottom: 96px;">
       <div class="wrap">
-        <div style="display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap;" id="tag-filters">
-          {allTags.map(t => (
-            <button
-              class={`filter-btn${t === "all" ? " active" : ""}`}
-              data-filter={t}
-            >
-              {t === "all" ? "* all" : `# ${t.toLowerCase()}`}
-            </button>
+        <div class="searchwrap">
+          <input type="search" id="blog-search" placeholder="Search posts — titles, excerpts" aria-label="Search posts" />
+        </div>
+        <div class="filters" id="tag-filters">
+          <button class="on" data-filter="all">All <span style="opacity:.5">{posts.length}</span></button>
+          {allTags.map((t) => (
+            <button data-filter={t}>{t} <span style="opacity:.5">{posts.filter((p) => (p.frontmatter.tags ?? []).includes(t)).length}</span></button>
           ))}
         </div>
-        <div style="border-top: 1px solid var(--line);" id="posts-list">
-          {posts.map(p => (
+        <div class="blogrows" id="blog-rows">
+          {posts.map((p) => (
             <a
-              class="post-row"
+              class="brow"
               href={`/post/${p.frontmatter.path}`}
               data-tags={JSON.stringify(p.frontmatter.tags ?? [])}
+              data-text={`${p.frontmatter.title} ${p.frontmatter.excerpt ?? ""}`.toLowerCase()}
             >
-              <div class="post-row-date">{getShortDate(p.frontmatter.date)}</div>
-              <div>
-                <div class="post-row-title">{p.frontmatter.title}</div>
-                <div class="post-row-excerpt">{p.frontmatter.excerpt}</div>
+              <div class="bt">
+                <span class="chip chip-a">{(p.frontmatter.tags ?? [])[0] ?? "post"}</span>
+                <span class="mono" style="margin-top: 10px;">{getShortDate(p.frontmatter.date)}</span>
               </div>
-              <div class="post-row-meta">
-                <span style="color: var(--accent)">#{(p.frontmatter.tags?.[0] ?? "").toLowerCase()}</span>
-                <span>5 min</span>
+              <div>
+                <h3 class="h3" style="font-size: clamp(20px,2vw,26px);">{p.frontmatter.title}</h3>
+                <p class="body" style="margin-top: 10px; max-width: 40em;">{p.frontmatter.excerpt}</p>
               </div>
             </a>
           ))}
         </div>
+        <p class="mono" id="no-results" style="display: none; padding: 40px 4px;">No posts match your search.</p>
       </div>
     </section>
-
+    <Contact />
   </div>
 </Default>
 
 <script>
-  const rows = Array.from(document.querySelectorAll<HTMLElement>(".post-row"));
-  const filterBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".filter-btn"));
+  const rows = Array.from(document.querySelectorAll<HTMLElement>("#blog-rows > a"));
+  const filterBtns = Array.from(document.querySelectorAll<HTMLButtonElement>("#tag-filters button"));
+  const searchInput = document.getElementById("blog-search") as HTMLInputElement;
+  const noResults = document.getElementById("no-results")!;
   let activeTag = "all";
+  let query = "";
 
   function update() {
-    rows.forEach(row => {
+    let visible = 0;
+    rows.forEach((row) => {
       const tags: string[] = JSON.parse(row.dataset.tags ?? "[]");
-      const show = activeTag === "all" || tags.includes(activeTag);
+      const text = row.dataset.text ?? "";
+      const tagMatch = activeTag === "all" || tags.includes(activeTag);
+      const qMatch = query === "" || text.includes(query);
+      const show = tagMatch && qMatch;
       row.style.display = show ? "" : "none";
+      if (show) visible++;
     });
+    noResults.style.display = visible === 0 ? "" : "none";
   }
 
-  filterBtns.forEach(btn => {
+  filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       activeTag = btn.dataset.filter ?? "all";
-      filterBtns.forEach(b => b.classList.toggle("active", b === btn));
+      filterBtns.forEach((b) => b.classList.toggle("on", b === btn));
       update();
     });
+  });
+
+  searchInput.addEventListener("input", () => {
+    query = searchInput.value.trim().toLowerCase();
+    update();
   });
 </script>

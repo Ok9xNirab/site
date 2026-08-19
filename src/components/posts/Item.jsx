@@ -1,21 +1,15 @@
-import { getFormattedDate } from "@utils/index";
+import { getShortDate } from "@utils/index";
 
 export default function Item({ date, path, title, excerpt, tags }) {
   return (
-    <a href={`/post/${path}`} class="post-card">
-      <div class="post-item__title">
-        <h4 class="text-xl leading-normal block mb-6 font-bold">{title}</h4>
+    <a href={`/post/${path}`} class="brow">
+      <div class="bt">
+        <span class="chip chip-a">{(tags ?? [])[0] ?? "post"}</span>
+        <span class="mono" style={{ marginTop: "10px" }}>{getShortDate(date)}</span>
       </div>
       <div>
-        <p class="leading-6 font-normal text-gray-400 text-sm">{excerpt}</p>
-      </div>
-      <div class="flex justify-between items-center mt-5">
-        <p class="text-sm text-gray-800">
-          {tags.map((tag) => (
-            <span class="mr-3"># {tag}</span>
-          ))}
-        </p>
-        <p class="text-sm text-gray-800">{getFormattedDate(date)}</p>
+        <h3 class="h3" style={{ fontSize: "clamp(20px,2vw,26px)" }}>{title}</h3>
+        <p class="body" style={{ marginTop: "10px", maxWidth: "40em" }}>{excerpt}</p>
       </div>
     </a>
   );

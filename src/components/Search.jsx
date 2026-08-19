@@ -12,14 +12,16 @@ const Search = ({ posts }) => {
   const resultPosts = fuse.search(searchInput);
 
   return (
-    <div class="bg-white">
-      <input
-        onInput={(e) => setInput(e.target.value)}
-        class="w-full border px-5 py-3"
-        type="text"
-        placeholder="Search Articles"
-      />
-      <div class="my-5">
+    <div>
+      <div class="searchwrap">
+        <input
+          onInput={(e) => setInput(e.target.value)}
+          type="search"
+          placeholder="Search posts — titles, excerpts"
+          aria-label="Search posts"
+        />
+      </div>
+      <div class="blogrows">
         {resultPosts.map((post) => (
           <Item {...post.item} />
         ))}

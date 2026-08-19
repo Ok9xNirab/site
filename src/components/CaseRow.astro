@@ -1,0 +1,16 @@
+---
+export interface Props {
+  c: any;
+}
+const { c } = Astro.props as Props;
+---
+
+<a class="row" href={`/work/${c.slug}/`}>
+  <span class="mono">{c.n}</span>
+  <h3 class="rt">{c.title} <small>{c.sub}</small></h3>
+  <div class="rs">
+    <span class="chip chip-a">{c.category}</span>
+    {c.stack.slice(0, 3).map((s: string) => <span class="chip">{s}</span>)}
+  </div>
+  <span class="ry">{c.year} <span class="arrow">→</span></span>
+</a>
