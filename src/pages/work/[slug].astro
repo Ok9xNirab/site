@@ -38,7 +38,7 @@ const next = CASES[(i + 1) % CASES.length];
     </section>
 
     <section style="padding-bottom: 24px;">
-      <div class="wrap"><Slot cap={c.gallery[0].cap} ratio="16 / 9" /></div>
+      <div class="wrap"><Slot cap={c.gallery[0].cap} ratio="16 / 9" src={c.gallery[0].img} /></div>
     </section>
 
     <section style="padding-top: 48px;">
@@ -51,6 +51,7 @@ const next = CASES[(i + 1) % CASES.length];
               <div><h4>Role</h4><ul><li>{c.role}</li></ul></div>
               <div><h4>Timeline</h4><ul><li>{c.duration}</li></ul></div>
               <div><h4>Team</h4><ul><li>{c.team}</li></ul></div>
+              {c.client && <div><h4>Client</h4><ul><li>{c.client}</li></ul></div>}
               <div><h4>Stack</h4><ul>{c.stack.map((s: string) => <li>{s}</li>)}</ul></div>
             </div>
           </div>
@@ -75,7 +76,7 @@ const next = CASES[(i + 1) % CASES.length];
     <section style="padding: 28px 0 8px;">
       <div class="wrap">
         <div class="two">
-          {c.gallery.slice(1).map((g: { id: string; cap: string }) => <Slot cap={g.cap} ratio="4 / 3" />)}
+          {c.gallery.slice(1).map((g: { id: string; cap: string; img?: string }) => <Slot cap={g.cap} ratio="4 / 3" src={g.img} />)}
         </div>
       </div>
     </section>

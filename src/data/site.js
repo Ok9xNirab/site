@@ -65,4 +65,4 @@ export const PLUGINS = [
   { name: "Social Sharing Button", slug: "social", blurb: "Lightweight share buttons for product pages. No external trackers, no jQuery.", url: "https://wordpress.org/plugins/product-sharing-buttons/", tag: "Sharing" },
 ];
 
-export const CATEGORIES = ["Python", "PHP", "Node.js", "Microservices"];
+export const CATEGORIES = ["PHP"];
