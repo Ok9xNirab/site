@@ -17,7 +17,7 @@ const { c } = Astro.props as { c: (typeof CURATED_CATEGORIES)[number] };
   <div class="page">
     <section class="hero" style="padding-bottom: 44px;">
       <div class="wrap">
-        <a class="backlink" href="/curated/">← Curated</a>
+        <a class="backlink" href="/curated">← Curated</a>
         <p class="mono" style="margin: 34px 0 18px;">Curated · {c.items.length} items</p>
         <h1 class="h2">{c.title}</h1>
         <p class="lead" style="margin-top: 22px;">{c.desc}</p>

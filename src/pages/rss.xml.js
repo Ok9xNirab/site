@@ -19,8 +19,8 @@ export async function get() {
     .map(
       (f) => `    <item>
       <title>${esc(f.title)}</title>
-      <link>${SITE}/post/${esc(f.path)}/</link>
-      <guid isPermaLink="true">${SITE}/post/${esc(f.path)}/</guid>
+      <link>${SITE}/post/${esc(f.path)}</link>
+      <guid isPermaLink="true">${SITE}/post/${esc(f.path)}</guid>
       <description>${esc(f.excerpt)}</description>
       <pubDate>${new Date(f.date).toUTCString()}</pubDate>
 ${(f.tags ?? []).map((t) => `      <category>${esc(t)}</category>`).join("\n")}
@@ -32,7 +32,7 @@ ${(f.tags ?? []).map((t) => `      <category>${esc(t)}</category>`).join("\n")}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Istiaq Nirab — Writing</title>
-    <link>${SITE}/blog/</link>
+    <link>${SITE}/blog</link>
     <atom:link href="${SITE}/rss.xml" rel="self" type="application/rss+xml" />
     <description>Notes on WordPress, WooCommerce, Laravel, and the bits of full-stack development worth writing down.</description>
     <language>en</language>

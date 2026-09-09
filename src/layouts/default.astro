@@ -35,12 +35,13 @@ const defaultImg = "/me.jpeg";
 const desc = description ?? defaultDescription;
 const site = Astro.site ?? new URL(SITE);
 
-// Normalise to a trailing-slash canonical so /foo and /foo/ collapse to one URL.
-const path = Astro.url.pathname.replace(/\/+$/, "");
-const canonical = new URL(path === "" ? "/" : `${path}/`, site).href;
+// The public URL of a route: no trailing slash, and no .html even though the
+// build emits foo.html, so /foo, /foo/ and /foo.html collapse to one URL.
+const path = Astro.url.pathname.replace(/\.html$/, "").replace(/\/+$/, "");
+const canonical = new URL(path === "" ? "/" : path, site).href;
 // An explicit image wins; otherwise use this route's generated card, and
 // only fall back to the portrait when the route has none.
-const ogImage = new URL(image ?? ogImageFor(Astro.url.pathname) ?? defaultImg, site).href;
+const ogImage = new URL(image ?? ogImageFor(path) ?? defaultImg, site).href;
 
 const published = publishedAt ? new Date(publishedAt).toISOString() : undefined;
 
@@ -194,12 +195,12 @@ const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": grap
         if (tag === "INPUT" || tag === "TEXTAREA") return;
         const map: Record<string, string> = {
           "1": "/",
-          "2": "/work/",
-          "3": "/blog/",
-          "4": "/curated/",
-          "5": "/plugins/",
-          "6": "/about/",
-          "7": "/contact/",
+          "2": "/work",
+          "3": "/blog",
+          "4": "/curated",
+          "5": "/plugins",
+          "6": "/about",
+          "7": "/contact",
         };
         if (map[e.key]) window.location.href = map[e.key];
       });

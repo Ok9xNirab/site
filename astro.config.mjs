@@ -30,6 +30,9 @@ function rehypeLazyImages() {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://nirab.me',
+  // Extensionless, slash-free URLs: /post/foo, not /post/foo/.
+  trailingSlash: 'never',
+  build: { format: 'file' },
   markdown: { rehypePlugins: [rehypeLazyImages] },
   integrations: [tailwind(), mdx(), image(), preact()]
 });

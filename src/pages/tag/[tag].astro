@@ -35,7 +35,7 @@ import { getShortDate } from "@utils/index";
   <div class="page">
     <section class="hero" style="padding-bottom: 40px;">
       <div class="wrap">
-        <a class="backlink" href="/blog/">← Writing</a>
+        <a class="backlink" href="/blog">← Writing</a>
         <p class="mono" style="margin: 34px 0 18px;">Writing · {posts.length} {posts.length === 1 ? "post" : "posts"}</p>
         <h1 class="h2"><span class="it">#</span>{tag}</h1>
       </div>
@@ -44,7 +44,7 @@ import { getShortDate } from "@utils/index";
       <div class="wrap">
         <div class="blogrows">
           {posts.map((p: any) => (
-            <a class="brow" href={`/post/${p.frontmatter.path}/`}>
+            <a class="brow" href={`/post/${p.frontmatter.path}`}>
               <div class="bt">
                 <span class="chip chip-a">{(p.frontmatter.tags ?? [])[0] ?? tag}</span>
                 <span class="mono" style="margin-top: 10px;">{getShortDate(p.frontmatter.date)}</span>

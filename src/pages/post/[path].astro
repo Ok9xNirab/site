@@ -33,12 +33,12 @@ const breadcrumbs = {
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: "https://nirab.me/" },
-    { "@type": "ListItem", position: 2, name: "Writing", item: "https://nirab.me/blog/" },
+    { "@type": "ListItem", position: 2, name: "Writing", item: "https://nirab.me/blog" },
     {
       "@type": "ListItem",
       position: 3,
       name: post.frontmatter.title,
-      item: `https://nirab.me/post/${post.frontmatter.path}/`,
+      item: `https://nirab.me/post/${post.frontmatter.path}`,
     },
   ],
 };
@@ -55,10 +55,10 @@ const breadcrumbs = {
   <div class="page">
     <section class="post-hero">
       <div class="wrap-n">
-        <a class="backlink" href="/blog/">← Writing</a>
+        <a class="backlink" href="/blog">← Writing</a>
         <div style="display: flex; gap: 14px; align-items: baseline; margin: 34px 0 20px; flex-wrap: wrap;">
           {(post.frontmatter.tags ?? []).map((tag: string) => (
-            <a href={`/tag/${tag}/`} class="chip chip-a">{tag}</a>
+            <a href={`/tag/${tag}`} class="chip chip-a">{tag}</a>
           ))}
           <span class="mono">{getFormattedDate(post.frontmatter.date)}</span>
         </div>
@@ -82,7 +82,7 @@ const breadcrumbs = {
           </div>
           <div class="share-row">
             <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.frontmatter.title)}`} target="_blank" rel="noreferrer">X / Twitter</a>
-            <a href={`https://www.facebook.com/sharer/sharer.php?u=https://nirab.me/post/${post.frontmatter.path}/`} target="_blank" rel="noreferrer">Facebook</a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=https://nirab.me/post/${post.frontmatter.path}`} target="_blank" rel="noreferrer">Facebook</a>
             <a href={`https://news.ycombinator.com/submitlink?t=${encodeURIComponent(post.frontmatter.title)}`} target="_blank" rel="noreferrer">Hacker News</a>
           </div>
         </div>
@@ -103,7 +103,7 @@ const breadcrumbs = {
           <Eyebrow>More posts</Eyebrow>
           <div class="post-carousel">
             {more.map((x) => (
-              <a class="post-card" href={`/post/${x.frontmatter.path}/`}>
+              <a class="post-card" href={`/post/${x.frontmatter.path}`}>
                 <span class="chip chip-a">{(x.frontmatter.tags ?? [])[0] ?? "post"}</span>
                 <h3 class="h3" style="font-size: 19px;">{x.frontmatter.title}</h3>
                 <p class="body" style="font-size: 13.5px;">{x.frontmatter.excerpt}</p>

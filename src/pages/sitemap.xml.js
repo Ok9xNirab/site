@@ -14,29 +14,29 @@ export async function get() {
     entries.push({ loc: `${SITE}${path}`, changefreq, priority, lastmod });
 
   add("/", { changefreq: "monthly", priority: "1.0" });
-  add("/work/", { priority: "0.9" });
-  add("/blog/", { changefreq: "weekly", priority: "0.9" });
-  add("/plugins/", { priority: "0.8" });
-  add("/curated/", { priority: "0.7" });
-  add("/about/", { priority: "0.7" });
-  add("/contact/", { priority: "0.7" });
+  add("/work", { priority: "0.9" });
+  add("/blog", { changefreq: "weekly", priority: "0.9" });
+  add("/plugins", { priority: "0.8" });
+  add("/curated", { priority: "0.7" });
+  add("/about", { priority: "0.7" });
+  add("/contact", { priority: "0.7" });
 
-  for (const c of CASES) add(`/work/${c.slug}/`, { priority: "0.8" });
+  for (const c of CASES) add(`/work/${c.slug}`, { priority: "0.8" });
   for (const c of CURATED_CATEGORIES.filter((c) => !c.draft))
-    add(`/curated/${c.slug}/`, { priority: "0.6" });
+    add(`/curated/${c.slug}`, { priority: "0.6" });
 
   const live = Object.values(posts)
     .map((m) => m.frontmatter)
     .filter((f) => f && !f.draft);
 
   for (const f of live)
-    add(`/post/${f.path}/`, {
+    add(`/post/${f.path}`, {
       priority: "0.8",
       lastmod: new Date(f.date).toISOString().slice(0, 10),
     });
 
   const tags = [...new Set(live.flatMap((f) => f.tags ?? []))];
-  for (const t of tags) add(`/tag/${encodeURIComponent(t)}/`, { priority: "0.4" });
+  for (const t of tags) add(`/tag/${encodeURIComponent(t)}`, { priority: "0.4" });
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

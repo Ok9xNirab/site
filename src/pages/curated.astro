@@ -26,7 +26,7 @@ import { CURATED_CATEGORIES } from "@data/curated.js";
               <span class="backlink" style="margin-top: 22px; display: inline-flex;">In progress</span>
             </div>
           ) : (
-            <a href={`/curated/${c.slug}/`} style="cursor: pointer; display: block;">
+            <a href={`/curated/${c.slug}`} style="cursor: pointer; display: block;">
               <div style="display: flex; justify-content: space-between; align-items: baseline;">
                 <h3 class="h3">{c.title}</h3>
                 <span class="mono">{c.items.length}</span>

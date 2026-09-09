@@ -13,7 +13,7 @@ const posts = Object.values(import.meta.glob("/posts/**/*.{md,mdx}", { eager: tr
   .filter((f) => f && !f.draft);
 
 /**
- * "/work/soundcloudplace/" -> "work-soundcloudplace.png", "/" -> "index.png"
+ * "/work/soundcloudplace" -> "work-soundcloudplace.png", "/" -> "index.png"
  *
  * Anything outside the URL-safe set collapses to a dash, so a tag containing a
  * space or a slash can't produce a filename the meta tag would fail to address.
@@ -31,49 +31,49 @@ const staticPages = [
     description: "Full stack & AI engineer. I build products end to end.",
   },
   {
-    path: "/work/",
+    path: "/work",
     title: "Case studies",
     description: "Products I owned from schema to ship.",
   },
   {
-    path: "/blog/",
+    path: "/blog",
     title: "Writing",
     description:
       "Notes on WordPress, WooCommerce, Laravel, and the bits of full-stack development worth writing down.",
   },
   {
-    path: "/curated/",
+    path: "/curated",
     title: "Curated",
     description: "Tools, reads, talks and threads worth keeping — organized by kind, not by date.",
   },
   {
-    path: "/plugins/",
+    path: "/plugins",
     title: "Plugins",
     description:
       "Nine WooCommerce plugins on wordpress.org — open-source, production-ready, actively maintained.",
   },
-  { path: "/about/", title: "About", description: PROFILE.intro },
+  { path: "/about", title: "About", description: PROFILE.intro },
   {
-    path: "/contact/",
+    path: "/contact",
     title: "Say hi",
     description: "Open for freelance plugin work, WooCommerce builds, and AI engineering projects.",
   },
 ];
 
 const postPages = posts.map((f) => ({
-  path: `/post/${f.path}/`,
+  path: `/post/${f.path}`,
   title: f.title,
   description: f.excerpt ?? "",
 }));
 
 const casePages = CASES.map((c) => ({
-  path: `/work/${c.slug}/`,
+  path: `/work/${c.slug}`,
   title: c.title,
   description: c.blurb ?? "",
 }));
 
 const curatedPages = CURATED_CATEGORIES.filter((c) => !c.draft).map((c) => ({
-  path: `/curated/${c.slug}/`,
+  path: `/curated/${c.slug}`,
   title: c.title,
   description: c.desc ?? "",
 }));
@@ -82,7 +82,7 @@ const tags = [...new Set(posts.flatMap((f) => f.tags ?? []))];
 const tagPages = tags.map((tag) => {
   const n = posts.filter((f) => (f.tags ?? []).includes(tag)).length;
   return {
-    path: `/tag/${tag}/`,
+    path: `/tag/${tag}`,
     title: `#${tag}`,
     description: `${n} ${n === 1 ? "post" : "posts"} on ${tag}.`,
   };

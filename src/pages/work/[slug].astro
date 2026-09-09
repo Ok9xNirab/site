@@ -21,7 +21,7 @@ const links = (c.links ?? []).filter((l: { url: string }) => l.url && l.url !== 
   <div class="page">
     <section class="case-hero">
       <div class="wrap">
-        <a class="backlink" href="/work/">← Case studies</a>
+        <a class="backlink" href="/work">← Case studies</a>
         <div style="display: flex; gap: 14px; align-items: baseline; margin: 34px 0 18px; flex-wrap: wrap;">
           <span class="mono">{c.n}</span>
           <span class="chip chip-a">{c.category}</span>
@@ -99,7 +99,7 @@ const links = (c.links ?? []).filter((l: { url: string }) => l.url && l.url !== 
         </div>
         <div class="nextcase">
           <span class="mono">Next case study</span>
-          <a href={`/work/${next.slug}/`} style="text-align: right;">
+          <a href={`/work/${next.slug}`} style="text-align: right;">
             <span class="h3">{next.title}</span> <span class="mono" style="margin-left: 10px;">{next.category} <span class="arrow">→</span></span>
           </a>
         </div>

@@ -1,14 +1,14 @@
 ---
-const pathname = Astro.url.pathname;
+const pathname = Astro.url.pathname.replace(/\.html$/, "").replace(/\/+$/, "") || "/";
 
 const pages = [
   { label: "Index", href: "/" },
-  { label: "Work", href: "/work/" },
-  { label: "Blog", href: "/blog/" },
-  { label: "Curated", href: "/curated/" },
-  { label: "Plugins", href: "/plugins/" },
-  { label: "About", href: "/about/" },
-  { label: "Contact", href: "/contact/" },
+  { label: "Work", href: "/work" },
+  { label: "Blog", href: "/blog" },
+  { label: "Curated", href: "/curated" },
+  { label: "Plugins", href: "/plugins" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 function isActive(href: string) {

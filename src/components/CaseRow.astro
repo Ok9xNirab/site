@@ -5,7 +5,7 @@ export interface Props {
 const { c } = Astro.props as Props;
 ---
 
-<a class="row" href={`/work/${c.slug}/`}>
+<a class="row" href={`/work/${c.slug}`}>
   <span class="mono">{c.n}</span>
   <h3 class="rt">{c.title} <small>{c.sub}</small></h3>
   <div class="rs">

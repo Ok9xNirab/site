@@ -34,7 +34,7 @@ const allTags = Array.from(new Set(posts.flatMap((p) => p.frontmatter.tags ?? []
           {posts.map((p) => (
             <a
               class="brow"
-              href={`/post/${p.frontmatter.path}/`}
+              href={`/post/${p.frontmatter.path}`}
               data-tags={JSON.stringify(p.frontmatter.tags ?? [])}
               data-text={`${p.frontmatter.title} ${p.frontmatter.excerpt ?? ""}`.toLowerCase()}
             >
