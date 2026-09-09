@@ -1,17 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { OGImageRoute } from "astro-og-canvas";
-
-// Every published post, keyed by its own frontmatter slug so the generated
-// image URL mirrors the post URL: /post/foo/ -> /og/foo.png
-const modules = import.meta.glob("/posts/**/*.{md,mdx}", { eager: true }) as Record<
-  string,
-  { frontmatter: { title: string; excerpt?: string; path: string; draft?: boolean } }
->;
-
-const pages = Object.fromEntries(
-  Object.entries(modules).filter(([, m]) => !m.frontmatter.draft)
-);
+import { OG_BY_SLUG } from "../../data/og.js";
 
 // Design tokens, mirrored from src/styles/global.css.
 const INK: [number, number, number] = [18, 18, 15];
@@ -31,11 +21,12 @@ const JETBRAINS = [fontUrl("jetbrains-mono-500.ttf"), fontUrl("jetbrains-mono-40
 
 export const { getStaticPaths, get } = OGImageRoute({
   param: "route",
-  pages,
-  getSlug: (_path, page) => `${page.frontmatter.path}.png`,
-  getImageOptions: (_path, page) => ({
-    title: page.frontmatter.title,
-    description: page.frontmatter.excerpt ?? "",
+  // Already keyed by the slug this route serves, so the key is the slug.
+  pages: OG_BY_SLUG,
+  getSlug: (slug) => slug,
+  getImageOptions: (_slug, page: { title: string; description: string }) => ({
+    title: page.title,
+    description: page.description,
     bgGradient: [WASH],
     border: { color: ACCENT, width: 18, side: "inline-start" },
     padding: 70,

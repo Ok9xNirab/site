@@ -13,6 +13,7 @@ export interface Props {
 }
 
 import Header from "../components/layouts/Header.astro";
+import { ogImageFor } from "../data/og.js";
 const {
   title,
   description,
@@ -37,7 +38,9 @@ const site = Astro.site ?? new URL(SITE);
 // Normalise to a trailing-slash canonical so /foo and /foo/ collapse to one URL.
 const path = Astro.url.pathname.replace(/\/+$/, "");
 const canonical = new URL(path === "" ? "/" : `${path}/`, site).href;
-const ogImage = new URL(image ?? defaultImg, site).href;
+// An explicit image wins; otherwise use this route's generated card, and
+// only fall back to the portrait when the route has none.
+const ogImage = new URL(image ?? ogImageFor(Astro.url.pathname) ?? defaultImg, site).href;
 
 const published = publishedAt ? new Date(publishedAt).toISOString() : undefined;
 
