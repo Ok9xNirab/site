@@ -66,3 +66,67 @@ export const PLUGINS = [
 ];
 
 export const CATEGORIES = ["PHP"];
+
+export const EXPERIENCE = [
+  {
+    org: "WPFactory",
+    note: "WooCommerce plugin studio",
+    roles: [
+      {
+        title: "WooCommerce Developer",
+        meta: "Part-time · Remote",
+        dates: "Feb 2026 — Jul 2026",
+        span: "6 mos",
+        points: [
+          "Maintained WBW Product Filter, WBW Currency and ExtendsWP Excel Import-Export — roughly 100,000 active installs between them.",
+          "Handled support tickets end to end, including fixes applied straight onto live merchant stores.",
+        ],
+      },
+    ],
+  },
+  {
+    org: "Kodezen",
+    note: "Product engineering team",
+    roles: [
+      {
+        title: "WordPress Plugin Developer",
+        meta: "Full-time · Remote",
+        dates: "Dec 2024 — Apr 2026",
+        span: "1 yr 5 mos",
+        points: [
+          "Owned GemBoards end to end — a Jira-style project management plugin — from first architecture through release and iteration.",
+          "Built core features for StoreEngine, a WooCommerce-alternative commerce plugin, inside a larger team on a codebase live for external merchants.",
+          "Developed the Gutenberg blocks behind StoreEngine cart and dynamic pages.",
+          "Wrote the demo importer for aBlocks, a Gutenberg block library.",
+        ],
+      },
+    ],
+  },
+  {
+    org: "Bit Byte Technology",
+    note: "SpringDevs is its WooCommerce arm",
+    roles: [
+      {
+        title: "WordPress Plugin Developer",
+        team: "SpringDevs",
+        meta: "Full-time · Remote",
+        dates: "Jul 2020 — Nov 2024",
+        span: "4 yrs 5 mos",
+        points: [
+          "Built and shipped 10+ WooCommerce extensions on wordpress.org — Subscription, Booking, Pre-Order, PDF Invoices, Advance Coupons, Bulk Product Selling, Checkout Field Customizer, SMS Notification and Social Sharing.",
+          "Kept them working through Woo and core releases, with merchant support attached.",
+        ],
+      },
+      {
+        title: "Software Engineer",
+        meta: "Full-time · Banasree, Dhaka · Remote",
+        dates: "Jul 2020 — Nov 2024",
+        span: "4 yrs 5 mos",
+        points: [
+          "Custom product work with Laravel on the backend and Nuxt.js on the front, plus WordPress problems that came with it.",
+          "Built the early version of mypremo.com and contributed front end on acceler8.",
+        ],
+      },
+    ],
+  },
+];

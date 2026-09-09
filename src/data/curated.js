@@ -22,6 +22,7 @@ export const CURATED_CATEGORIES = [
   },
   {
     slug: "reads",
+    draft: true,
     title: "Reads",
     desc: "Articles and papers that changed how I think about a specific problem, kept here so I stop losing the link.",
     items: [
@@ -32,6 +33,7 @@ export const CURATED_CATEGORIES = [
   },
   {
     slug: "talks",
+    draft: true,
     title: "Talks & videos",
     desc: "Talks I've rewatched more than once, which is the only metric that matters for this list.",
     items: [
@@ -41,6 +43,7 @@ export const CURATED_CATEGORIES = [
   },
   {
     slug: "threads",
+    draft: true,
     title: "Threads & discussions",
     desc: "Forum threads and long comment sections worth the twenty minutes, saved before they inevitably get buried.",
     items: [

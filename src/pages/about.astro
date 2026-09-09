@@ -1,7 +1,7 @@
 ---
 import Default from "@layouts/default.astro";
 import Contact from "@components/Contact.astro";
-import { PROFILE } from "@data/site.js";
+import { PROFILE, EXPERIENCE } from "@data/site.js";
 ---
 
 <Default title="About | Istiaq Nirab" description={PROFILE.intro}>
@@ -32,6 +32,33 @@ import { PROFILE } from "@data/site.js";
             <p class="body">Six-plus years in, most of my work has been the same shape: a WooCommerce store or a product that works until it doesn't, and a team that needs it to keep working while it changes underneath them. I take those.</p>
             <p class="body">On WordPress I picked the boring, well-documented option on purpose — hooks over overrides, the Settings API over a hand-rolled admin screen, and enough tests that a core update doesn't become a support ticket.</p>
             <p class="body">On the AI side I care about the unglamorous half: retrieval quality, evals, guardrails, and what happens when the model is wrong. A demo takes an afternoon; a product takes those.</p>
+          </div>
+        </div>
+        <div class="block">
+          <span class="bt">Experience</span>
+          <div class="tree">
+            {EXPERIENCE.map((co) => (
+              <div class="tco">
+                <div class="tcoh">
+                  <span class="tcname">{co.org}</span>
+                  <span class="tcnote">{co.note}</span>
+                </div>
+                <div class="troles">
+                  {co.roles.map((r) => (
+                    <div class="trole">
+                      <div class="troleh">
+                        <span class="trt">{r.title}{r.team && <> · <em>{r.team}</em></>}</span>
+                        <span class="trm">{r.dates} · {r.span}</span>
+                      </div>
+                      <p class="trmeta">{r.meta}</p>
+                      <ul class="tpoints">
+                        {r.points.map((pt) => <li>{pt}</li>)}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
         <div class="block">

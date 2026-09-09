@@ -253,3 +253,37 @@ mark { background: var(--accent-soft); color: var(--ink); border-radius: 1px; }
 
 /* ─── Animations ────────────────────────────────────────────── */
 @keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ─── Experience tree ───────────────────────────────────────── */
+.tree { display: grid; }
+.tco { position: relative; padding: 0 0 30px 30px; }
+.tco + .tco { padding-top: 30px; border-top: 1px solid var(--line); }
+.tco:last-child { padding-bottom: 0; }
+.tco::before { content: ""; position: absolute; left: 0; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+.tco + .tco::before { top: 37px; }
+.tcoh { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.tcname { font-size: 20px; letter-spacing: -.025em; color: var(--ink); }
+.tcnote { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); }
+.troles { position: relative; margin-top: 22px; padding-left: 28px; }
+.troles::before { content: ""; position: absolute; left: -26px; top: -18px; bottom: 0; width: 1px; background: linear-gradient(var(--line), var(--line) 62%, transparent); }
+.trole { position: relative; }
+.trole + .trole { margin-top: 28px; }
+.trole::before { content: ""; position: absolute; left: -21px; top: 12px; width: 13px; height: 1px; background: var(--line); }
+.trole::after { content: ""; position: absolute; left: -30px; top: 8px; width: 7px; height: 7px; border: 1px solid var(--line2); background: var(--paper); transform: rotate(45deg); }
+.troleh { display: flex; align-items: baseline; justify-content: space-between; gap: 10px 20px; flex-wrap: wrap; }
+.trt { font-size: 17px; letter-spacing: -.02em; color: var(--ink); }
+.trt em { font-family: var(--serif); font-style: italic; color: var(--ink2); }
+.trm { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); white-space: nowrap; }
+.trmeta { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); margin-top: 7px; }
+ul.tpoints { list-style: none; margin-top: 14px; display: grid; gap: 9px; }
+ul.tpoints li { position: relative; padding-left: 20px; font-size: 14.5px; line-height: 1.6; color: var(--ink2); text-wrap: pretty; max-width: 44em; }
+ul.tpoints li::before { content: ""; position: absolute; left: 0; top: 11px; width: 11px; height: 1px; background: var(--line2); }
+@media (max-width: 700px) {
+  .tco { padding-left: 22px; }
+  .troles { padding-left: 20px; }
+  .troles::before { left: -18px; }
+  .trole::before { left: -13px; width: 6px; }
+  .trole::after { left: -22px; }
+}
+.curated-cards > .curated-soon { padding: 36px 30px; background: var(--wash); }
+.curated-soon .h3, .curated-soon .backlink { color: var(--ink3); }

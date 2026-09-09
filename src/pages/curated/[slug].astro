@@ -4,7 +4,7 @@ import Contact from "@components/Contact.astro";
 import { CURATED_CATEGORIES } from "@data/curated.js";
 
 export async function getStaticPaths() {
-  return CURATED_CATEGORIES.map((c) => ({
+  return CURATED_CATEGORIES.filter((c) => !c.draft).map((c) => ({
     params: { slug: c.slug },
     props: { c },
   }));

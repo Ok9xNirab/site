@@ -16,7 +16,16 @@ import { CURATED_CATEGORIES } from "@data/curated.js";
     <section class="sec sec-t" style="padding-top: 0; border-top: none;">
       <div class="wrap">
         <div class="disc curated-cards">
-          {CURATED_CATEGORIES.map((c) => (
+          {CURATED_CATEGORIES.map((c) => c.draft ? (
+            <div class="curated-soon">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 14px;">
+                <h3 class="h3">{c.title}</h3>
+                <span class="chip">Coming soon</span>
+              </div>
+              <p class="body" style="margin-top: 14px; font-size: 15.5px;">{c.desc}</p>
+              <span class="backlink" style="margin-top: 22px; display: inline-flex;">In progress</span>
+            </div>
+          ) : (
             <a href={`/curated/${c.slug}/`} style="cursor: pointer; display: block;">
               <div style="display: flex; justify-content: space-between; align-items: baseline;">
                 <h3 class="h3">{c.title}</h3>
