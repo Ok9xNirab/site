@@ -27,12 +27,37 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 
 import Default from "@layouts/default.astro";
-import Item from "@components/posts/Item.astro";
+import Contact from "@components/Contact.astro";
+import { getShortDate } from "@utils/index";
 ---
 
-<Default title={`${tag} posts | Istiaq Nirab`}>
-  <h4 class="text-3xl text-slate-700 font-semibold text-center mt-20">{tag}</h4>
-  <div class="my-20 lg:max-w-screen-sm mx-auto">
-    {posts.map((post: any) => <Item {...post.frontmatter} />)}
+<Default title={`${tag} posts | Istiaq Nirab`} description={`Posts tagged ${tag} — notes on WordPress, WooCommerce and full-stack development.`}>
+  <div class="page">
+    <section class="hero" style="padding-bottom: 40px;">
+      <div class="wrap">
+        <a class="backlink" href="/blog/">← Writing</a>
+        <p class="mono" style="margin: 34px 0 18px;">Writing · {posts.length} {posts.length === 1 ? "post" : "posts"}</p>
+        <h1 class="h2"><span class="it">#</span>{tag}</h1>
+      </div>
+    </section>
+    <section style="padding-bottom: 96px;">
+      <div class="wrap">
+        <div class="blogrows">
+          {posts.map((p: any) => (
+            <a class="brow" href={`/post/${p.frontmatter.path}/`}>
+              <div class="bt">
+                <span class="chip chip-a">{(p.frontmatter.tags ?? [])[0] ?? tag}</span>
+                <span class="mono" style="margin-top: 10px;">{getShortDate(p.frontmatter.date)}</span>
+              </div>
+              <div>
+                <h3 class="h3" style="font-size: clamp(20px,2vw,26px);">{p.frontmatter.title}</h3>
+                <p class="body" style="margin-top: 10px; max-width: 40em;">{p.frontmatter.excerpt}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+    <Contact />
   </div>
 </Default>

@@ -1,65 +1,72 @@
 ---
-const pages: { name: string; slug: string }[] = [
-  { name: "Home", slug: "/" },
-  { name: "Blog", slug: "/blog/" },
-  { name: "Contact", slug: "/contact/" },
+const pathname = Astro.url.pathname;
+
+const pages = [
+  { label: "Index", href: "/" },
+  { label: "Work", href: "/work/" },
+  { label: "Blog", href: "/blog/" },
+  { label: "Curated", href: "/curated/" },
+  { label: "Plugins", href: "/plugins/" },
+  { label: "About", href: "/about/" },
+  { label: "Contact", href: "/contact/" },
 ];
 
-const pathname = new URL(Astro.request.url).pathname;
+function isActive(href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname.startsWith(href);
+}
 ---
 
-<div
-  class="lg:flex justify-between items-center lg:max-w-screen-xl mx-auto text-center lg:text-left my-10"
->
-  <a href="/" class="font-bold text-violet-700 text-3xl"> nirab</a>
-  <ul class="flex justify-center lg:justify-start items-center mt-4 lg:mt-0">
-    {
-      pages.map((page) => (
-        <li class="mx-3 hover:underline">
-          <a
-            class={`text-black hover:text-violet-600 ${
-              pathname === page.slug && "text-violet-600"
-            }`}
-            href={page.slug}
-          >
-            {page.name}
-          </a>
-        </li>
-      ))
-    }
-    <li class="mx-3">
-      <a class="text-black hover:text-violet-600" href="/search">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 cursor-pointer"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-        </svg>
-      </a>
-    </li>
-    <!-- <li class="mx-3">
-      <a href="/bookmarks" class={"text-black hover:text-black"}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-line-cap="round"
-            stroke-linejoin="round"
-            stroke-width={2}
-            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-        </svg>
-      </a>
-    </li> -->
-  </ul>
-</div>
+<header class="top">
+  <div class="wrap top-in">
+    <a href="/" class="brandlink">
+      <span class="sq"></span>
+      <span>Istiaq Nirab</span>
+      <em>full stack + ai</em>
+    </a>
+
+    <nav class="main">
+      {pages.map((p) => (
+        <a href={p.href} class={isActive(p.href) ? "on" : ""}>{p.label}</a>
+      ))}
+    </nav>
+
+    <button class="navtoggle" id="navtoggle" aria-label="Menu" aria-expanded="false" aria-controls="mobnav">
+      <span class="bars"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+
+  <nav class="mobnav" id="mobnav" hidden>
+    <div class="wrap mobnav-in">
+      {pages.map((p) => (
+        <a href={p.href} class={isActive(p.href) ? "on" : ""}>{p.label}</a>
+      ))}
+    </div>
+  </nav>
+</header>
+
+<script>
+  const btn = document.getElementById("navtoggle");
+  const panel = document.getElementById("mobnav");
+
+  if (btn && panel) {
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+      document.documentElement.classList.toggle("nav-open", open);
+    };
+
+    btn.addEventListener("click", () => setOpen(panel.hidden));
+
+    panel.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("a")) setOpen(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !panel.hidden) { setOpen(false); btn.focus(); }
+    });
+
+    const mq = window.matchMedia("(min-width: 861px)");
+    mq.addEventListener("change", (e) => { if (e.matches) setOpen(false); });
+  }
+</script>

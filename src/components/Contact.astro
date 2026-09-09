@@ -1,0 +1,78 @@
+---
+import { PROFILE, SOCIALS } from "../data/site.js";
+---
+
+<section class="sec sec-t" id="contact">
+  <div class="wrap cgrid">
+    <div>
+      <div class="eyebrow"><span>Contact</span><span class="rule"></span><span>{PROFILE.tz}</span></div>
+      <p class="lead" style="margin-bottom: 30px; max-width: 22em;">Have something that needs building, fixing, or finishing? Write one paragraph — that's usually enough.</p>
+      <form class="cform" style="max-width: 520px;" id="contact-form" action="https://api.staticforms.dev/submit" method="POST">
+        <input type="hidden" name="apiKey" value="sf_63a9d8fde3c293b791837f7a" />
+        <input type="hidden" name="subject" value="Istiaq Nirab submission" />
+        <label class="cfield">
+          <span class="mono">Name</span>
+          <input required name="name" id="c-name" type="text" />
+        </label>
+        <label class="cfield">
+          <span class="mono">Email</span>
+          <input required name="email" id="c-email" type="email" />
+        </label>
+        <label class="cfield">
+          <span class="mono">Message</span>
+          <textarea required name="message" id="c-message" rows="5"></textarea>
+        </label>
+        <button type="submit" class="cfsubmit" id="c-submit">Send <span class="arrow">↗</span></button>
+      </form>
+      <div class="sociallist" style="margin-top: 44px;">
+        {SOCIALS.map((s) => (
+          <a href={s.url} target="_blank" rel="noreferrer" class="mono" style="color: var(--ink2);">{s.label} <span class="arrow">↗</span></a>
+        ))}
+      </div>
+    </div>
+    <div class="cside">
+      <div class="cdiamond"></div>
+      <div class="pingrow"><span class="ping"></span>open to new work</div>
+      <div class="cstat"><span>Local time</span><b id="local-clock" style="font-family: var(--mono); font-variant-numeric: tabular-nums;">--:--:--</b></div>
+      <div class="cstat"><span>Based in</span><b>{PROFILE.place}</b></div>
+      <div class="cstat"><span>Experience</span><b>{PROFILE.years} years</b></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const submitBtn = document.getElementById("c-submit");
+  if (form && submitBtn) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      submitBtn.textContent = "Sending…";
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(form),
+        });
+        if (!res.ok) throw new Error("Request failed");
+        submitBtn.textContent = "Sent — thanks!";
+        form.reset();
+      } catch {
+        submitBtn.textContent = "Something went wrong — try again";
+      }
+    });
+  }
+
+  function tick() {
+    const el = document.getElementById("local-clock");
+    if (!el) return;
+    const now = new Date();
+    const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+    const local = new Date(utc + 6 * 3600000);
+    const hh = String(local.getHours()).padStart(2, "0");
+    const mm = String(local.getMinutes()).padStart(2, "0");
+    const ss = String(local.getSeconds()).padStart(2, "0");
+    el.textContent = `${hh}:${mm}:${ss}`;
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>

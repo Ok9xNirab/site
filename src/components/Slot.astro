@@ -1,0 +1,34 @@
+---
+export interface Props {
+  cap: string;
+  ratio?: string;
+  src?: string;
+}
+const { cap, ratio = "16 / 10", src } = Astro.props as Props;
+---
+
+<figure class="figure">
+  {src ? (
+    <div class="slot slot-img" style={`aspect-ratio: ${ratio}`}>
+      <img src={src} alt={cap} loading="lazy" />
+    </div>
+  ) : (
+    <div class="slot" style={`aspect-ratio: ${ratio}`}>
+      <span class="slot-ph">{cap}</span>
+    </div>
+  )}
+  <figcaption class="figcaption">{cap}</figcaption>
+</figure>
+
+<style>
+  .slot-img {
+    overflow: hidden;
+  }
+  .slot-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+</style>

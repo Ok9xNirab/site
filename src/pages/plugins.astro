@@ -1,0 +1,37 @@
+---
+import Default from "@layouts/default.astro";
+import Eyebrow from "@components/Eyebrow.astro";
+import Contact from "@components/Contact.astro";
+import { PLUGINS } from "@data/site.js";
+---
+
+<Default title="Plugins | Istiaq Nirab" description="Nine WooCommerce plugins on wordpress.org — open-source, production-ready, actively maintained.">
+  <div class="page">
+    <section class="hero" style="padding-bottom: 44px;">
+      <div class="wrap">
+        <p class="mono" style="margin-bottom: 26px;">WordPress · WooCommerce · {PLUGINS.length} plugins</p>
+        <h1 class="h2">Plugins other people<br /><span class="it">run in production</span>.</h1>
+        <p class="lead" style="margin-top: 26px;">Published on wordpress.org and maintained since. Every one started as a client problem that turned out to be everyone's problem.</p>
+      </div>
+    </section>
+    <section style="padding-bottom: 96px;">
+      <div class="wrap">
+        <Eyebrow right="wordpress.org">Directory</Eyebrow>
+        <div class="rows">
+          {PLUGINS.map((p) => (
+            <a class="prow" href={p.url} target="_blank" rel="noreferrer">
+              <h3>{p.name}</h3>
+              <p class="pb">{p.blurb}</p>
+              <span class="pm">
+                <span class="chip">{p.tag}</span>
+                <span class="arrow">↗</span>
+              </span>
+            </a>
+          ))}
+        </div>
+        <p class="mono" style="margin-top: 26px;">Links open on wordpress.org</p>
+      </div>
+    </section>
+    <Contact />
+  </div>
+</Default>

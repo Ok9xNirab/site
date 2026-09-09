@@ -1,0 +1,51 @@
+---
+import Default from "@layouts/default.astro";
+import CaseRow from "@components/CaseRow.astro";
+import Contact from "@components/Contact.astro";
+import { CATEGORIES } from "@data/site.js";
+import { CASES } from "@data/cases.js";
+---
+
+<Default title="Work | Istiaq Nirab" description="Case studies — products I owned from schema to ship.">
+  <div class="page">
+    <section class="hero" style="padding-bottom: 48px;">
+      <div class="wrap">
+        <p class="mono" style="margin-bottom: 26px;">Case studies · 2023—2024</p>
+        <h1 class="h2">Client work,<br />one <span class="it">way of working</span>.</h1>
+        <p class="lead" style="margin-top: 26px;">Products I owned from schema to ship.</p>
+      </div>
+    </section>
+    <section style="padding-bottom: 96px;">
+      <div class="wrap">
+        <div class="filters" id="cat-filters">
+          <button class="on" data-filter="All">All <span style="opacity:.5">{CASES.length}</span></button>
+          {CATEGORIES.map((c) => (
+            <button data-filter={c}>{c} <span style="opacity:.5">{CASES.filter((x) => x.category === c).length}</span></button>
+          ))}
+        </div>
+        <div class="rows" id="case-rows">
+          {CASES.map((c) => (
+            <div data-category={c.category}>
+              <CaseRow c={c} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+    <Contact />
+  </div>
+</Default>
+
+<script>
+  const btns = Array.from(document.querySelectorAll<HTMLButtonElement>("#cat-filters button"));
+  const rows = Array.from(document.querySelectorAll<HTMLElement>("#case-rows > div"));
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter ?? "All";
+      btns.forEach((b) => b.classList.toggle("on", b === btn));
+      rows.forEach((row) => {
+        row.style.display = filter === "All" || row.dataset.category === filter ? "" : "none";
+      });
+    });
+  });
+</script>

@@ -1,136 +1,70 @@
 ---
-import plugin from "@tailwindcss/typography";
-import Default from "../layouts/default.astro";
-const plugins = [
-  {
-    title: "Subscription for WooCommerce",
-    description:
-      "A powerfull plugin that allow to enable subscription on woocommerce products.",
-    img: "subscription-wp.png",
-    color: "bg-violet-600 text-white",
-    link: "https://wordpress.org/plugins/subscription/",
-  },
-  {
-    title: "Booking for <br/> wooCommerce",
-    description:
-      "Show available dates, time in a simple dropdown, take booking for products and services.",
-    img: "booking-wp.png",
-    color: "bg-black text-white",
-    link: "https://wordpress.org/plugins/wc-booking/",
-  },
-  {
-    title: "Pre Order Addon for WooCommerce – Advance Order/Backorder Plugin",
-    description: "Allow customers to pre-order from your store.",
-    img: "pre-order-wp.png",
-    color: "bg-pink-600 text-white",
-    link: "https://wordpress.org/plugins/wc-pre-order/",
-  },
-  {
-    title: "PDF Invoices & Packing Slips",
-    description:
-      "Create, print & email PDF invoices & packing slips for WooCommerce orders.",
-    img: "invoice-wp.png",
-    color: "bg-fuchsia-600 text-white",
-    link: "https://wordpress.org/plugins/pdf-invoices-and-packing-slips/",
-  },
-  {
-    title: "Advance Coupons for Woocommerce",
-    description:
-      "Create gift vouchers, store credits, special discounts based on the amount spent, etc.",
-    img: "coupon-wp.png",
-    color: "bg-orange-600 text-white",
-    link: "https://wordpress.org/plugins/advance-coupons-for-woocommerce/",
-  },
-  {
-    title: "Bulk Product Selling",
-    description:
-      "Sell many products in one Like Group Product. But you can use single price here.",
-    img: "bpselling-wp.png",
-    color: "bg-teal-700 text-white",
-    link: "https://wordpress.org/plugins/bulk-products-selling/",
-  },
-  {
-    title: "Checkout Field Customizer",
-    description: "Customize your checkout fields easily !!",
-    img: "cfc-wp.png",
-    color: "bg-pink-700 text-white",
-    link: "https://wordpress.org/plugins/checkout-field-customizer/",
-  },
-  {
-    title: "WC SMS Notification",
-    description: "Order SMS Notofication for WooCommerce.",
-    img: "sms-wp.png",
-    color: "bg-slate-700 text-white",
-    link: "https://wordpress.org/plugins/wc-sms-notification/",
-  },
-  {
-    title: "Social Sharing Button",
-    description: "Share your zest with your friends and others.",
-    img: "social-wp.png",
-    color: "bg-blue-700 text-white",
-    link: "https://wordpress.org/plugins/product-sharing-buttons/",
-  },
-];
+import Default from "@layouts/default.astro";
+import Eyebrow from "@components/Eyebrow.astro";
+import CaseRow from "@components/CaseRow.astro";
+import Contact from "@components/Contact.astro";
+import { PROFILE, DISCIPLINES, STACK } from "@data/site.js";
+import { CASES } from "@data/cases.js";
+
+const featured = CASES;
 ---
 
-<Default title="Istiaq Nirab | Full Stack Web developer">
-  <section class="lg:max-w-screen-xl mx-auto">
-    <div class="bg-gray-200 p-10 rounded-xl shadow-xl relative">
-      <div class="mask-1"></div>
-      <div class="flex justify-between items-center">
-        <div>
-          <h3 class="text-4xl leading-10">
-            Hey, I'm <span class="font-semibold text-violet-400"
-              >Istiaq Nirab</span
-            >
-          </h3>
-          <p class="mt-2 text-lg">
-            A Full Stack Developer with 5-years of experience.
-          </p>
+<Default
+  title="Istiaq Nirab — full stack + AI engineer"
+  description="Full stack and AI engineer in Dhaka. Nine WooCommerce plugins on wordpress.org, plus product work in Django, Laravel, FastAPI and Next.js."
+>
+  <div class="page">
+    <section class="hero">
+      <div class="wrap">
+        <p class="mono" style="margin-bottom: 30px;">{PROFILE.place} · {PROFILE.tz} · open to new work</p>
+        <h1 class="display">Full stack &amp; AI engineer.<br />I build products <span class="it">end to end</span>.</h1>
+        <div class="hero-meta">
+          <div><span class="mono">Currently</span><span class="v">Freelance &amp; contract</span></div>
+          <div><span class="mono">Experience</span><span class="v" style="white-space: nowrap;">{PROFILE.years} years</span></div>
+          <div><span class="mono">Disciplines</span><span class="v">WordPress · Full stack · AI</span></div>
+          <div><span class="mono">Written in</span><span class="v">PHP · Python · TypeScript</span></div>
         </div>
-        <img class="w-20 rounded-full" src="/me-classic.jpeg" alt="Photo" />
       </div>
-    </div>
-    <div class="my-14 grid lg:grid-cols-3 gap-4">
-      {
-        plugins.map((plugin) => (
-          <div
-            class={`${plugin.color} rounded-lg transition-transform p-4 shadow-none hover:-translate-y-2 grid content-between`}
-          >
-            <div class="flex items-start justify-between">
-              <div class="mb-3">
-                <h5 class="text-2xl font-semibold" set:html={plugin.title} />
-                <p class="text-sm my-2">{plugin.description}</p>
-              </div>
-              <a
-                class="p-3 border rounded-full bg-white text-black"
-                href={plugin.link}
-                target="_blank"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-                  />
-                </svg>
-              </a>
+    </section>
+
+    <section class="sec sec-t">
+      <div class="wrap">
+        <Eyebrow right="03 practices">What I do</Eyebrow>
+        <div class="disc">
+          {DISCIPLINES.map((d) => (
+            <div>
+              <h3 class="h3">{d.title}</h3>
+              <p class="lead" style="margin: 16px 0 14px; font-size: 18px;">{d.line}</p>
+              <p class="body" style="font-size: 15.5px;" set:html={d.body} />
+              <ul>{d.items.map((i) => <li>{i}</li>)}</ul>
             </div>
-            <img
-              class="rounded-lg"
-              src={`/portfolio/${plugin.img}`}
-              alt="Plugin Image"
-            />
-          </div>
-        ))
-      }
-    </div>
-  </section>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec-t">
+      <div class="wrap">
+        <Eyebrow right={`${CASES.length} case studies`}>Selected work</Eyebrow>
+        <div class="rows">{featured.map((c) => <CaseRow c={c} />)}</div>
+        <a class="backlink" style="margin-top: 28px; display: inline-flex;" href="/work/">All work <span class="arrow">→</span></a>
+      </div>
+    </section>
+
+    <section class="sec sec-t">
+      <div class="wrap">
+        <Eyebrow>Toolkit</Eyebrow>
+        <div class="stackg">
+          {STACK.map((g) => (
+            <div>
+              <h4>{g.group}</h4>
+              <ul>{g.items.map((i) => <li>{i}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Contact />
+  </div>
 </Default>

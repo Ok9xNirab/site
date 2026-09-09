@@ -1,0 +1,43 @@
+---
+import Default from "@layouts/default.astro";
+import Contact from "@components/Contact.astro";
+import { CURATED_CATEGORIES } from "@data/curated.js";
+---
+
+<Default title="Curated | Istiaq Nirab" description="Tools, reads, talks and threads worth keeping — organized by kind, not by date.">
+  <div class="page">
+    <section class="hero" style="padding-bottom: 40px;">
+      <div class="wrap">
+        <p class="mono" style="margin-bottom: 26px;">Curated</p>
+        <h1 class="h2">Things worth keeping,<br />sorted so I can <span class="it">find them again</span>.</h1>
+        <p class="lead" style="margin-top: 26px;">Tools, reads, talks and threads I've come back to more than once — organized by kind, not by date.</p>
+      </div>
+    </section>
+    <section class="sec sec-t" style="padding-top: 0; border-top: none;">
+      <div class="wrap">
+        <div class="disc curated-cards">
+          {CURATED_CATEGORIES.map((c) => c.draft ? (
+            <div class="curated-soon">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 14px;">
+                <h3 class="h3">{c.title}</h3>
+                <span class="chip">Coming soon</span>
+              </div>
+              <p class="body" style="margin-top: 14px; font-size: 15.5px;">{c.desc}</p>
+              <span class="backlink" style="margin-top: 22px; display: inline-flex;">In progress</span>
+            </div>
+          ) : (
+            <a href={`/curated/${c.slug}/`} style="cursor: pointer; display: block;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <h3 class="h3">{c.title}</h3>
+                <span class="mono">{c.items.length}</span>
+              </div>
+              <p class="body" style="margin-top: 14px; font-size: 15.5px;">{c.desc}</p>
+              <span class="backlink" style="margin-top: 22px; display: inline-flex;">Browse {c.title.toLowerCase()} <span class="arrow">→</span></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+    <Contact />
+  </div>
+</Default>

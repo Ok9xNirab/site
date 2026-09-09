@@ -12,7 +12,7 @@ export interface Props {
 const { date, path, title, excerpt, tags } = Astro.props as Props;
 ---
 
-<a href={`/post/${path}`} class="post-card">
+<a href={`/post/${path}/`} class="post-card">
   <div class="post-item__title">
     <h4 class="text-xl leading-normal block mb-6 font-bold">{title}</h4>
   </div>

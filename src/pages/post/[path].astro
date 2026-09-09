@@ -1,6 +1,8 @@
 ---
 import Default from "@layouts/default.astro";
-import { getFormattedDate } from "@utils/index";
+import Eyebrow from "@components/Eyebrow.astro";
+import Contact from "@components/Contact.astro";
+import { getFormattedDate, getShortDate } from "@utils/index";
 
 export async function getStaticPaths() {
   const posts = (await Astro.glob("./../../../posts/**/*.{md,mdx}")).filter(
@@ -20,58 +22,100 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = post;
+
+const allPosts = (await Astro.glob("./../../../posts/**/*.{md,mdx}"))
+  .filter((p) => !p.frontmatter.draft)
+  .sort((a, b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date));
+const more = allPosts.filter((p) => p.frontmatter.path !== post.frontmatter.path).slice(0, 3);
+
+const breadcrumbs = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://nirab.me/" },
+    { "@type": "ListItem", position: 2, name: "Writing", item: "https://nirab.me/blog/" },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: post.frontmatter.title,
+      item: `https://nirab.me/post/${post.frontmatter.path}/`,
+    },
+  ],
+};
 ---
 
 <Default
-  title={post.frontmatter.title}
+  title={`${post.frontmatter.title} | Istiaq Nirab`}
   description={post.frontmatter.excerpt}
-  image={post.frontmatter.image}
+  type="article"
+  publishedAt={post.frontmatter.date}
+  tags={post.frontmatter.tags ?? []}
+  schema={breadcrumbs}
 >
-  <div class="my-20 lg:max-w-screen-md mx-6 lg:mx-auto leading-6">
-    <div class="mb-6">
-      <h3 class="text-xl lg:text-4xl font-bold text-gray-700 mb-6">
-        {post.frontmatter.title}
-      </h3>
-      <div class="flex items-center text-sm justify-between">
-        <div class="text-gray-500">
-          {getFormattedDate(post.frontmatter.date)}
+  <div class="page">
+    <section class="post-hero">
+      <div class="wrap-n">
+        <a class="backlink" href="/blog/">← Writing</a>
+        <div style="display: flex; gap: 14px; align-items: baseline; margin: 34px 0 20px; flex-wrap: wrap;">
+          {(post.frontmatter.tags ?? []).map((tag: string) => (
+            <a href={`/tag/${tag}/`} class="chip chip-a">{tag}</a>
+          ))}
+          <span class="mono">{getFormattedDate(post.frontmatter.date)}</span>
         </div>
-        <div>
-          {
-            post.frontmatter.tags.map((tag: String) => (
-              <a class="mr-3" href={`/tag/${tag}`}>
-                #{tag}
+        <h1 class="h2" style="font-size: clamp(34px,5.4vw,58px);">{post.frontmatter.title}</h1>
+        {post.frontmatter.excerpt && <p class="lead" style="margin-top: 22px; max-width: 36em;">{post.frontmatter.excerpt}</p>}
+      </div>
+    </section>
+
+    <section class="sec sec-t" style="padding-top: 56px;">
+      <div class="wrap-n post-body">
+        <div class="prose-editorial">
+          <Content />
+        </div>
+        <div class="post-foot">
+          <div class="post-author">
+            <span class="av"><img src="/me-classic.jpeg" alt="Istiaq Nirab" width="48" height="48" loading="lazy" decoding="async" /></span>
+            <div>
+              <div class="an">Istiaq Nirab</div>
+              <div class="ar">Full stack + AI engineer</div>
+            </div>
+          </div>
+          <div class="share-row">
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.frontmatter.title)}`} target="_blank" rel="noreferrer">X / Twitter</a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=https://nirab.me/post/${post.frontmatter.path}/`} target="_blank" rel="noreferrer">Facebook</a>
+            <a href={`https://news.ycombinator.com/submitlink?t=${encodeURIComponent(post.frontmatter.title)}`} target="_blank" rel="noreferrer">Hacker News</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec-t">
+      <div class="wrap-n">
+        <Eyebrow>Discussion</Eyebrow>
+        <p class="body" style="margin-bottom: 20px;">Comments run on giscus, backed by GitHub Discussions — sign in with GitHub to reply.</p>
+        <div class="commentbox">
+          <span class="mono">giscus comment embed</span>
+          <span class="mono mute" style="margin-top: 6px;">{"<script src=\"https://giscus.app/client.js\" data-repo=\"...\" data-mapping=\"pathname\" async></script>"}</span>
+        </div>
+      </div>
+    </section>
+
+    {more.length > 0 && (
+      <section style="padding: 0 0 88px;">
+        <div class="wrap-post">
+          <Eyebrow>More posts</Eyebrow>
+          <div class="post-carousel">
+            {more.map((x) => (
+              <a class="post-card" href={`/post/${x.frontmatter.path}/`}>
+                <span class="chip chip-a">{(x.frontmatter.tags ?? [])[0] ?? "post"}</span>
+                <h3 class="h3" style="font-size: 19px;">{x.frontmatter.title}</h3>
+                <p class="body" style="font-size: 13.5px;">{x.frontmatter.excerpt}</p>
+                <span class="mono mute" style="margin-top: auto;">{getShortDate(x.frontmatter.date)}</span>
               </a>
-            ))
-          }
-        </div>
-      </div>
-      <div
-        class="mx-auto prose prose-sm lg:prose-lg mt-12 font-light text-[darkslategray] prose-blockquote:not-italic prose-blockquote:font-normal prose-blockquote:text-sm"
-      >
-        <Content />
-      </div>
-      <div>
-        <hr class="my-6" />
-        <div class="flex items-start bg-gray-100 p-3 border rounded">
-          <div class="w-48 p-1 border">
-            <img src="/me-classic.jpeg" alt="me" />
-          </div>
-          <div class="ml-3">
-            <h4 class="font-bold text-xl">Istiaq Nirab</h4>
-            <p class="text-gray-400 text-xs">Full stack web developer</p>
-            <p class="text-gray-700 text-sm my-2 leading-6">
-              I’m a WordPress Plugin developer & have some experienced with
-              WooCommerce . Last couple of years, I developed 10+ WooCommerce
-              extensions & also did some custom solutions . I'm ready for served
-              any WordPress & WooCommerce related custom solutions.
-            </p>
-            <a href="https://twitter.com/ok9xnirab" target="_blank">
-              Follow me on twitter
-            </a>
+            ))}
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    )}
+    <Contact />
   </div>
 </Default>

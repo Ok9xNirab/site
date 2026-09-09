@@ -1,0 +1,45 @@
+---
+import Default from "@layouts/default.astro";
+import Contact from "@components/Contact.astro";
+import { CURATED_CATEGORIES } from "@data/curated.js";
+
+export async function getStaticPaths() {
+  return CURATED_CATEGORIES.filter((c) => !c.draft).map((c) => ({
+    params: { slug: c.slug },
+    props: { c },
+  }));
+}
+
+const { c } = Astro.props as { c: (typeof CURATED_CATEGORIES)[number] };
+---
+
+<Default title={`${c.title} | Curated | Istiaq Nirab`} description={c.desc}>
+  <div class="page">
+    <section class="hero" style="padding-bottom: 44px;">
+      <div class="wrap">
+        <a class="backlink" href="/curated/">← Curated</a>
+        <p class="mono" style="margin: 34px 0 18px;">Curated · {c.items.length} items</p>
+        <h1 class="h2">{c.title}</h1>
+        <p class="lead" style="margin-top: 22px;">{c.desc}</p>
+      </div>
+    </section>
+    <section style="padding-bottom: 96px;">
+      <div class="wrap">
+        <div class="rows">
+          {c.items.map((it: { title: string; note: string; source: string; url: string; date: string }) => (
+            <a class="prow" href={it.url} target="_blank" rel="noreferrer">
+              <h3>{it.title}</h3>
+              <p class="pb">{it.note}</p>
+              <span class="pm">
+                <span class="chip">{it.source}</span>
+                {c.slug !== "tools" && <span>{it.date}</span>}
+                <span class="arrow">↗</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+    <Contact />
+  </div>
+</Default>

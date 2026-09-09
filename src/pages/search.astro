@@ -3,23 +3,22 @@ import Default from "@layouts/default.astro";
 import Search from "@components/Search";
 
 const posts = (await Astro.glob("./../../posts/**/*.{md,mdx}"))
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.publishDate).valueOf() -
-      new Date(a.frontmatter.publishDate).valueOf()
-  )
+  .sort((a, b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date))
   .filter((post) => !post.frontmatter.draft);
 ---
 
-<Default title="Search | Istiaq Nirab">
-  <div class="my-20 lg:max-w-screen-sm mx-10 lg:mx-auto">
-    <div class="mb-10">
-      <h4 class="text-2xl font-semibold text-gray-600 mb-2 text-center">
-        Search
-      </h4>
-    </div>
-    <div>
-      <Search client:idle posts={posts} />
-    </div>
+<Default title="Search | Istiaq Nirab" description="Search posts on WordPress, WooCommerce and full-stack development." noindex>
+  <div class="page">
+    <section class="hero" style="padding-bottom: 40px;">
+      <div class="wrap-n">
+        <p class="mono" style="margin-bottom: 26px;">Search</p>
+        <h1 class="h2">Find a post<span class="it">.</span></h1>
+      </div>
+    </section>
+    <section style="padding-bottom: 96px;">
+      <div class="wrap-n">
+        <Search client:idle posts={posts} />
+      </div>
+    </section>
   </div>
 </Default>

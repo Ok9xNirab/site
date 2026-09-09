@@ -6,3 +6,6 @@ export const getFormattedDate = (date) =>
             day: "numeric",
         })
         : "";
+
+export const getShortDate = (date) =>
+    date ? new Date(date).toISOString().split("T")[0] : "";
