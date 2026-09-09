@@ -14,6 +14,7 @@ export async function getStaticPaths() {
 const { c } = Astro.props as { c: (typeof CASES)[number] };
 const i = CASES.findIndex((x) => x.slug === c.slug);
 const next = CASES[(i + 1) % CASES.length];
+const links = (c.links ?? []).filter((l: { url: string }) => l.url && l.url !== "#");
 ---
 
 <Default title={`${c.title} | Istiaq Nirab`} description={c.blurb}>
@@ -87,11 +88,13 @@ const next = CASES[(i + 1) % CASES.length];
           <span class="bt">Outcome</span>
           <div>
             <p class="lead" style="max-width: 30em;">{c.results}</p>
-            <div style="display: flex; gap: 22px; margin-top: 34px; flex-wrap: wrap;">
-              {c.links.map((l: { label: string; url: string }) => (
-                <a href={l.url} class="mono" style="color: var(--ink);">{l.label} <span class="arrow">↗</span></a>
-              ))}
-            </div>
+            {links.length > 0 && (
+              <div style="display: flex; gap: 22px; margin-top: 34px; flex-wrap: wrap;">
+                {links.map((l: { label: string; url: string }) => (
+                  <a href={l.url} class="mono" style="color: var(--ink);">{l.label} <span class="arrow">↗</span></a>
+                ))}
+              </div>
+            )}
           </div>
         </div>
         <div class="nextcase">

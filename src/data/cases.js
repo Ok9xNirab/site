@@ -7,7 +7,7 @@ const mk = (o) =>
       role: "Lead full stack engineer",
       duration: "5 months",
       team: "Solo",
-      links: [{ label: "Live site", url: "#" }, { label: "Case notes", url: "#" }],
+      links: [],
     },
     o
   );
@@ -17,7 +17,7 @@ export const CASES = [
     slug: "soundcloudplace",
     n: "01",
     title: "SoundCloudPlace",
-    sub: "Social growth marketplace, full stack",
+    sub: "Social growth marketplace",
     category: "PHP",
     stack: ["Laravel", "MySQL", "Vue", "Bootstrap", "PayPal"],
     year: "2024",

@@ -6,7 +6,7 @@ export const PROFILE = {
   role: "Full stack + AI engineer",
   place: "Dhaka, BD",
   tz: "GMT+6",
-  years: "5+",
+  years: "6+",
   intro:
     "I build products end to end — nine WooCommerce plugins live on wordpress.org, and increasingly the AI layers that make products useful.",
 };
