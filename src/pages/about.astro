@@ -15,8 +15,8 @@ import { PROFILE } from "@data/site.js";
             <p class="lead" style="margin-top: 28px;">{PROFILE.intro}</p>
           </div>
           <div>
-            <div class="slot" style="width: 100%; height: 360px;">
-              <span class="slot-ph">portrait photo</span>
+            <div class="slot" style="width: 100%; height: 360px; overflow: hidden;">
+              <img src="/me-classic.jpeg" alt={PROFILE.name} style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
             <p class="figcaption">{PROFILE.name} · {PROFILE.place}</p>
           </div>

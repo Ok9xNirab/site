@@ -7,14 +7,16 @@ import { PROFILE, SOCIALS } from "../data/site.js";
     <div>
       <div class="eyebrow"><span>Contact</span><span class="rule"></span><span>{PROFILE.tz}</span></div>
       <p class="lead" style="margin-bottom: 30px; max-width: 22em;">Have something that needs building, fixing, or finishing? Write one paragraph — that's usually enough.</p>
-      <form class="cform" style="max-width: 520px;" id="contact-form">
+      <form class="cform" style="max-width: 520px;" id="contact-form" action="https://api.staticforms.dev/submit" method="POST">
+        <input type="hidden" name="apiKey" value="sf_63a9d8fde3c293b791837f7a" />
+        <input type="hidden" name="subject" value="Istiaq Nirab submission" />
         <label class="cfield">
           <span class="mono">Name</span>
           <input required name="name" id="c-name" type="text" />
         </label>
         <label class="cfield">
-          <span class="mono">Subject</span>
-          <input required name="subject" id="c-subject" type="text" />
+          <span class="mono">Email</span>
+          <input required name="email" id="c-email" type="email" />
         </label>
         <label class="cfield">
           <span class="mono">Message</span>
@@ -23,7 +25,7 @@ import { PROFILE, SOCIALS } from "../data/site.js";
         <button type="submit" class="cfsubmit" id="c-submit">Send <span class="arrow">↗</span></button>
       </form>
       <div class="sociallist" style="margin-top: 44px;">
-        {SOCIALS.filter((s) => s.label !== "email").map((s) => (
+        {SOCIALS.map((s) => (
           <a href={s.url} target="_blank" rel="noreferrer" class="mono" style="color: var(--ink2);">{s.label} <span class="arrow">↗</span></a>
         ))}
       </div>
@@ -38,19 +40,25 @@ import { PROFILE, SOCIALS } from "../data/site.js";
   </div>
 </section>
 
-<script define:vars={{ email: PROFILE.email }}>
-  const form = document.getElementById("contact-form");
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
   const submitBtn = document.getElementById("c-submit");
-  if (form) {
-    form.addEventListener("submit", (e) => {
+  if (form && submitBtn) {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const name = document.getElementById("c-name").value;
-      const subject = document.getElementById("c-subject").value;
-      const message = document.getElementById("c-message").value;
-      const body = "From: " + name + "\n\n" + message;
-      window.location.href =
-        "mailto:" + email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-      submitBtn.textContent = "Opening your mail app…";
+      submitBtn.textContent = "Sending…";
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(form),
+        });
+        if (!res.ok) throw new Error("Request failed");
+        submitBtn.textContent = "Sent — thanks!";
+        form.reset();
+      } catch {
+        submitBtn.textContent = "Something went wrong — try again";
+      }
     });
   }
 

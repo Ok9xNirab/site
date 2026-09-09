@@ -7,7 +7,6 @@ export const PROFILE = {
   place: "Dhaka, BD",
   tz: "GMT+6",
   years: "5+",
-  email: "hello@nirab.me",
   intro:
     "I build products end to end — nine WooCommerce plugins live on wordpress.org, and increasingly the AI layers that make products useful.",
 };
@@ -17,7 +16,6 @@ export const SOCIALS = [
   { label: "linkedin", handle: "ok9xnirab", url: "https://bd.linkedin.com/in/ok9xnirab" },
   { label: "dev.to", handle: "ok9xnirab", url: "https://dev.to/ok9xnirab" },
   { label: "x", handle: "Ok9xNirab", url: "https://twitter.com/Ok9xNirab" },
-  { label: "email", handle: "hello@nirab.me", url: "mailto:hello@nirab.me" },
 ];
 
 export const DISCIPLINES = [
@@ -46,14 +44,16 @@ export const DISCIPLINES = [
 
 export const STACK = [
   { group: "Languages", items: ["PHP", "Python", "TypeScript", "JavaScript", "SQL"] },
-  { group: "WordPress", items: ["Plugin API", "WooCommerce", "WP-CLI", "REST API", "Gutenberg", "Action Scheduler"] },
-  { group: "Web stack", items: ["Laravel", "Livewire", "Next.js", "React", "Tailwind", "Alpine.js"] },
-  { group: "AI", items: ["OpenAI API", "LangChain", "RAG & embeddings", "FastAPI", "pgvector", "Evals"] },
+  { group: "WordPress", items: ["Plugin API", "WooCommerce", "WP-CLI", "REST API", "Gutenberg", "Action Scheduler", "Elementor"] },
+  { group: "Web stack", items: ["Laravel", "Livewire", "Django", "FastAPI", "NestJS", "Next.js", "React", "Tailwind", "Alpine.js"] },
+  { group: "AI", items: ["OpenAI API", "LangChain", "LangGraph", "RAG & embeddings", "pgvector", "Evals"] },
   { group: "Data", items: ["MySQL", "PostgreSQL", "Redis", "NumPy", "Pandas"] },
-  { group: "Infra", items: ["Docker", "AWS", "GitHub Actions", "Composer", "PHPUnit / Pest"] },
+  { group: "AWS", items: ["EC2", "Lambda", "RDS", "Aurora", "ElasticSearch", "S3", "Route53", "VPC", "IAM", "CloudFront", "SQS / SNS", "CloudWatch"] },
+  { group: "Infra", items: ["Docker", "GitHub Actions", "Composer", "PHPUnit / Pest"] },
 ];
 
 export const PLUGINS = [
+  { name: "SaleMint – Paddle Checkout for WooCommerce", slug: "salemint-paddle-checkout", blurb: "Accept payments via Paddle as a WooCommerce checkout gateway — merchant of record handled for you.", url: "https://salemint.io/plugins/paddle-for-woocommerce", tag: "Payments" },
   { name: "Subscription for WooCommerce", slug: "subscription", blurb: "Recurring subscriptions on any WooCommerce product — plans, renewals, mid-cycle changes.", url: "https://wordpress.org/plugins/subscription/", tag: "Recurring" },
   { name: "Pre Order Addon for WooCommerce", slug: "pre-order", blurb: "Advance orders and backorders with release dates, partial payment and stock rules.", url: "https://wordpress.org/plugins/wc-pre-order/", tag: "Commerce" },
   { name: "Booking for WooCommerce", slug: "booking", blurb: "Available dates and time slots on products and services, with capacity per slot.", url: "https://wordpress.org/plugins/wc-booking/", tag: "Scheduling" },

@@ -32,7 +32,7 @@ const { c } = Astro.props as { c: (typeof CURATED_CATEGORIES)[number] };
               <p class="pb">{it.note}</p>
               <span class="pm">
                 <span class="chip">{it.source}</span>
-                <span>{it.date}</span>
+                {c.slug !== "tools" && <span>{it.date}</span>}
                 <span class="arrow">↗</span>
               </span>
             </a>
