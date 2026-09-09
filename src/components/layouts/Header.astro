@@ -1,5 +1,5 @@
 ---
-const pathname = new URL(Astro.request.url).pathname;
+const pathname = Astro.url.pathname;
 
 const pages = [
   { label: "Index", href: "/" },

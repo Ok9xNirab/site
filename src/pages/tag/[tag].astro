@@ -31,7 +31,7 @@ import Contact from "@components/Contact.astro";
 import { getShortDate } from "@utils/index";
 ---
 
-<Default title={`#${tag} | Istiaq Nirab`}>
+<Default title={`${tag} posts | Istiaq Nirab`} description={`Posts tagged ${tag} — notes on WordPress, WooCommerce and full-stack development.`}>
   <div class="page">
     <section class="hero" style="padding-bottom: 40px;">
       <div class="wrap">
@@ -44,7 +44,7 @@ import { getShortDate } from "@utils/index";
       <div class="wrap">
         <div class="blogrows">
           {posts.map((p: any) => (
-            <a class="brow" href={`/post/${p.frontmatter.path}`}>
+            <a class="brow" href={`/post/${p.frontmatter.path}/`}>
               <div class="bt">
                 <span class="chip chip-a">{(p.frontmatter.tags ?? [])[0] ?? tag}</span>
                 <span class="mono" style="margin-top: 10px;">{getShortDate(p.frontmatter.date)}</span>

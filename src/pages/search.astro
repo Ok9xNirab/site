@@ -7,7 +7,7 @@ const posts = (await Astro.glob("./../../posts/**/*.{md,mdx}"))
   .filter((post) => !post.frontmatter.draft);
 ---
 
-<Default title="Search | Istiaq Nirab">
+<Default title="Search | Istiaq Nirab" description="Search posts on WordPress, WooCommerce and full-stack development." noindex>
   <div class="page">
     <section class="hero" style="padding-bottom: 40px;">
       <div class="wrap-n">

@@ -311,3 +311,21 @@ ul.tpoints li::before { content: ""; position: absolute; left: 0; top: 11px; wid
 }
 .curated-cards > .curated-soon { padding: 36px 30px; background: var(--wash); }
 .curated-soon .h3, .curated-soon .backlink { color: var(--ink3); }
+
+/* Skip link — keyboard users jump past the nav. */
+.skiplink {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999;
+  padding: 12px 18px;
+  background: var(--ink, #0b0b0c);
+  color: var(--paper, #fff);
+  font-family: var(--mono, monospace);
+  font-size: 13px;
+  text-decoration: none;
+}
+.skiplink:focus {
+  left: 12px;
+  top: 12px;
+}

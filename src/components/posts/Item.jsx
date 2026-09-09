@@ -2,7 +2,7 @@ import { getShortDate } from "@utils/index";
 
 export default function Item({ date, path, title, excerpt, tags }) {
   return (
-    <a href={`/post/${path}`} class="brow">
+    <a href={`/post/${path}/`} class="brow">
       <div class="bt">
         <span class="chip chip-a">{(tags ?? [])[0] ?? "post"}</span>
         <span class="mono" style={{ marginTop: "10px" }}>{getShortDate(date)}</span>
