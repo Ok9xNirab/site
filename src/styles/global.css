@@ -269,7 +269,10 @@ mark { background: var(--accent-soft); color: var(--ink); border-radius: 1px; }
 .prose-editorial strong { color: var(--ink); font-weight: 500; }
 
 /* ─── Comments ──────────────────────────────────────────────── */
-.commentbox { border: 1px solid var(--line); background: var(--wash); padding: 36px 28px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+/* giscus injects its own .giscus wrapper right after the script tag. */
+.comments { min-height: 260px; }
+.comments .giscus, .comments .giscus-frame { width: 100%; }
+.comments .giscus-frame { border: 0; color-scheme: light; }
 
 /* ─── Curated cards ─────────────────────────────────────────── */
 .curated-cards > a { padding: 36px 30px; transition: background .15s; }

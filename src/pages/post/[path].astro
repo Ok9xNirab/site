@@ -2,6 +2,7 @@
 import Default from "@layouts/default.astro";
 import Eyebrow from "@components/Eyebrow.astro";
 import Contact from "@components/Contact.astro";
+import Giscus from "@components/Giscus.astro";
 import { getFormattedDate, getShortDate } from "@utils/index";
 
 export async function getStaticPaths() {
@@ -92,10 +93,7 @@ const breadcrumbs = {
       <div class="wrap-n">
         <Eyebrow>Discussion</Eyebrow>
         <p class="body" style="margin-bottom: 20px;">Comments run on giscus, backed by GitHub Discussions — sign in with GitHub to reply.</p>
-        <div class="commentbox">
-          <span class="mono">giscus comment embed</span>
-          <span class="mono mute" style="margin-top: 6px;">{"<script src=\"https://giscus.app/client.js\" data-repo=\"...\" data-mapping=\"pathname\" async></script>"}</span>
-        </div>
+        <Giscus />
       </div>
     </section>
 
