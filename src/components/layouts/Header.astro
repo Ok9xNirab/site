@@ -30,5 +30,43 @@ function isActive(href: string) {
         <a href={p.href} class={isActive(p.href) ? "on" : ""}>{p.label}</a>
       ))}
     </nav>
+
+    <button class="navtoggle" id="navtoggle" aria-label="Menu" aria-expanded="false" aria-controls="mobnav">
+      <span class="bars"><i></i><i></i><i></i></span>
+    </button>
   </div>
+
+  <nav class="mobnav" id="mobnav" hidden>
+    <div class="wrap mobnav-in">
+      {pages.map((p) => (
+        <a href={p.href} class={isActive(p.href) ? "on" : ""}>{p.label}</a>
+      ))}
+    </div>
+  </nav>
 </header>
+
+<script>
+  const btn = document.getElementById("navtoggle");
+  const panel = document.getElementById("mobnav");
+
+  if (btn && panel) {
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+      document.documentElement.classList.toggle("nav-open", open);
+    };
+
+    btn.addEventListener("click", () => setOpen(panel.hidden));
+
+    panel.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("a")) setOpen(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !panel.hidden) { setOpen(false); btn.focus(); }
+    });
+
+    const mq = window.matchMedia("(min-width: 861px)");
+    mq.addEventListener("change", (e) => { if (e.matches) setOpen(false); });
+  }
+</script>
