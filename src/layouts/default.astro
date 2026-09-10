@@ -169,6 +169,16 @@ const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": grap
     />
 
     <script type="application/ld+json" set:html={jsonLd} />
+
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-GDCEQD15QS"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-GDCEQD15QS');
+    </script>
   </head>
   <body>
     <a href="#main" class="skiplink">Skip to content</a>
