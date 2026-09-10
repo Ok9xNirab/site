@@ -270,6 +270,18 @@ mark { background: var(--accent-soft); color: var(--ink); border-radius: 1px; }
 .prose-editorial img { max-width: 100%; border: 1px solid var(--line); margin: 1.5em 0; }
 .prose-editorial hr { border: none; border-top: 1px solid var(--line); margin: 2.5em 0; }
 .prose-editorial strong { color: var(--ink); font-weight: 500; }
+/* Markdown tables: hairline rules only, and scroll sideways on narrow screens. */
+.prose-editorial table { display: block; overflow-x: auto; width: 100%; border-collapse: collapse; margin: 1.8em 0; font-size: 15.5px; line-height: 1.6; }
+.prose-editorial thead th { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); font-weight: 400; text-align: left; padding: 0 22px 10px 0; border-bottom: 1px solid var(--line2); white-space: nowrap; }
+.prose-editorial tbody td { padding: 11px 22px 11px 0; border-bottom: 1px solid var(--line); color: var(--ink2); vertical-align: top; }
+.prose-editorial tbody tr:last-child td { border-bottom: none; }
+.prose-editorial th:last-child, .prose-editorial td:last-child { padding-right: 0; }
+
+/* KaTeX math: display blocks sit apart from the text and scroll sideways
+   rather than overflowing the column on narrow screens. */
+.prose-editorial .katex { font-size: 1.05em; color: var(--ink); }
+.prose-editorial .katex-display { margin: 1.8em 0; padding: 4px 0; overflow-x: auto; overflow-y: hidden; }
+.prose-editorial .katex-display > .katex { text-align: left; }
 
 /* ─── Comments ──────────────────────────────────────────────── */
 /* giscus injects its own .giscus wrapper right after the script tag. */

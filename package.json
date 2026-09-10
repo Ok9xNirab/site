@@ -18,7 +18,10 @@
     "astro": "^1.6.10",
     "canvaskit-wasm": "^0.37.2",
     "fuse.js": "^6.6.2",
+    "katex": "^0.16.9",
     "preact": "^10.6.5",
+    "rehype-katex": "^6.0.3",
+    "remark-math": "^5.1.1",
     "tailwindcss": "^3.0.24"
   },
   "devDependencies": {

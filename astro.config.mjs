@@ -11,6 +11,8 @@ import image from "@astrojs/image";
 
 // https://astro.build/config
 import preact from "@astrojs/preact";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 
 // Lazy-load and async-decode images inside markdown posts, so content
@@ -33,6 +35,14 @@ export default defineConfig({
   // Extensionless, slash-free URLs: /post/foo, not /post/foo/.
   trailingSlash: 'never',
   build: { format: 'file' },
-  markdown: { rehypePlugins: [rehypeLazyImages] },
+  // Custom rehype plugins switch off Astro's built-in markdown plugins unless
+  // default plugins are extended, which would drop GFM tables and autolinks.
+  // remark-math parses $inline$ and $$display$$ in markdown; rehype-katex
+  // renders it to static HTML at build time, so no client-side JS is needed.
+  markdown: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeLazyImages, [rehypeKatex, { strict: false }]],
+    extendDefaultPlugins: true,
+  },
   integrations: [tailwind(), mdx(), image(), preact()]
 });
