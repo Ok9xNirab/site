@@ -2,8 +2,8 @@
 title: "Five steps from a business problem to an LLM that actually ships"
 path: "five-step-llm-strategy"
 excerpt: "Understand, prepare, select, customize, productionize. A working order of operations for picking a language model and getting it into production without burning a quarter."
-date: 2026-09-10
-draft: true
+date: 2026-09-12
+draft: false
 tags: ["LLM"]
 ---
 
