@@ -10,13 +10,13 @@ const posts = (await Astro.glob("./../../posts/**/*.{md,mdx}"))
 const allTags = Array.from(new Set(posts.flatMap((p) => p.frontmatter.tags ?? [])));
 ---
 
-<Default title="Blog | Istiaq Nirab" description="Notes on WordPress, WooCommerce, Laravel, and the bits of full-stack development worth writing down.">
+<Default title="Blog | Istiaq Nirab" description="Notes on AI, backend engineering, and the bits of software development worth writing down.">
   <div class="page">
     <section class="hero" style="padding-bottom: 40px;">
       <div class="wrap">
         <p class="mono" style="margin-bottom: 26px;">Writing · {posts.length} posts</p>
-        <h1 class="h2">Notes on WordPress, WooCommerce<br />and the bits <span class="it">worth remembering</span>.</h1>
-        <p class="lead" style="margin-top: 26px;">Plugin edge cases, debugging stories, and things I tried that may or may not have worked.</p>
+        <h1 class="h2">Notes on AI, backend engineering<br />and the bits <span class="it">worth remembering</span>.</h1>
+        <p class="lead" style="margin-top: 26px;">LLMs in real systems, backend fundamentals, debugging stories, and things I tried that may or may not have worked.</p>
       </div>
     </section>
     <section style="padding-bottom: 96px;">

@@ -39,7 +39,7 @@ const staticPages = [
     path: "/blog",
     title: "Writing",
     description:
-      "Notes on WordPress, WooCommerce, Laravel, and the bits of full-stack development worth writing down.",
+      "Notes on AI, backend engineering, and the bits of software development worth writing down.",
   },
   {
     path: "/curated",

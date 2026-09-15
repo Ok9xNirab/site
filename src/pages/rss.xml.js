@@ -34,7 +34,7 @@ ${(f.tags ?? []).map((t) => `      <category>${esc(t)}</category>`).join("\n")}
     <title>Istiaq Nirab — Writing</title>
     <link>${SITE}/blog</link>
     <atom:link href="${SITE}/rss.xml" rel="self" type="application/rss+xml" />
-    <description>Notes on WordPress, WooCommerce, Laravel, and the bits of full-stack development worth writing down.</description>
+    <description>Notes on AI, backend engineering, and the bits of software development worth writing down.</description>
     <language>en</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 ${items}
