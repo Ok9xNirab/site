@@ -2,7 +2,7 @@
 title: "The OSI model, layer by layer"
 path: "osi-model-explained"
 excerpt: "What each of the seven OSI layers does, how one HTTPS request gets wrapped and unwrapped on the way to a server, and why switches, routers and load balancers stop at different layers."
-date: 2026-09-14
+date: 2026-09-16
 draft: false
 tags: ["Networking"]
 ---
