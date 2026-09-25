@@ -262,7 +262,7 @@ mark { background: var(--accent-soft); color: var(--ink); border-radius: 1px; }
 .prose-editorial pre { background: var(--wash2); border: 1px solid var(--line); padding: 20px 24px; border-radius: 2px; overflow-x: auto; margin-bottom: 1.5em; }
 .prose-editorial pre code { background: none; padding: 0; }
 .prose-editorial blockquote { font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2.6vw, 28px); line-height: 1.35; letter-spacing: -.015em; color: var(--ink); margin: 40px 0; padding-left: 26px; border-left: 2px solid var(--accent); }
-.prose-editorial ul, .prose-editorial ol { padding-left: 1.4em; margin-bottom: 1.4em; color: var(--ink2); font-size: 17px; line-height: 1.7; }
+.prose-editorial ul, .prose-editorial ol { padding-left: 1.4em; margin-bottom: 1.4em; color: var(--ink); font-size: 17px; line-height: 1.7; }
 .prose-editorial ul { list-style: disc; }
 .prose-editorial ol { list-style: decimal; }
 .prose-editorial li::marker { color: var(--ink3); }
@@ -273,7 +273,7 @@ mark { background: var(--accent-soft); color: var(--ink); border-radius: 1px; }
 /* Markdown tables: hairline rules only, and scroll sideways on narrow screens. */
 .prose-editorial table { display: block; overflow-x: auto; width: 100%; border-collapse: collapse; margin: 1.8em 0; font-size: 15.5px; line-height: 1.6; }
 .prose-editorial thead th { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); font-weight: 400; text-align: left; padding: 0 22px 10px 0; border-bottom: 1px solid var(--line2); white-space: nowrap; }
-.prose-editorial tbody td { padding: 11px 22px 11px 0; border-bottom: 1px solid var(--line); color: var(--ink2); vertical-align: top; }
+.prose-editorial tbody td { padding: 11px 22px 11px 0; border-bottom: 1px solid var(--line); color: var(--ink); vertical-align: top; }
 .prose-editorial tbody tr:last-child td { border-bottom: none; }
 .prose-editorial th:last-child, .prose-editorial td:last-child { padding-right: 0; }
 
