@@ -17,6 +17,41 @@
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --serif: 'Instrument Serif', Georgia, serif;
+  --header-bg: rgba(255, 255, 255, .86);
+  color-scheme: light;
+}
+
+/* Dark palette: follows the OS unless the footer switcher pinned a theme
+   (data-theme on <html>). Same roles, inverted ink and paper. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e0e0c;
+    --wash: #171715;
+    --wash2: #1f1f1c;
+    --line: #2a2a26;
+    --line2: #3b3b36;
+    --ink: #ecece7;
+    --ink2: #a3a39a;
+    --ink3: #707068;
+    --accent: oklch(0.72 0.14 254);
+    --accent-soft: oklch(0.72 0.14 254 / 0.12);
+    --header-bg: rgba(14, 14, 12, .86);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0e0e0c;
+  --wash: #171715;
+  --wash2: #1f1f1c;
+  --line: #2a2a26;
+  --line2: #3b3b36;
+  --ink: #ecece7;
+  --ink2: #a3a39a;
+  --ink3: #707068;
+  --accent: oklch(0.72 0.14 254);
+  --accent-soft: oklch(0.72 0.14 254 / 0.12);
+  --header-bg: rgba(14, 14, 12, .86);
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -64,7 +99,7 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -.035em; line-height: 1; }
 .dim { color: var(--ink2); } .mute { color: var(--ink3); } .ink { color: var(--ink); }
 
 /* ─── Header ────────────────────────────────────────────────── */
-header.top { position: sticky; top: 0; z-index: 60; background: rgba(255, 255, 255, .86); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+header.top { position: sticky; top: 0; z-index: 60; background: var(--header-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
 .top-in { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 24px; }
 .brandlink { display: flex; align-items: baseline; gap: 9px; font-size: 15px; letter-spacing: -.02em; white-space: nowrap; flex: none; }
 .brandlink .sq { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; align-self: center; }
@@ -209,6 +244,10 @@ footer.site { border-top: 1px solid var(--line); padding: 34px 0 44px; margin-to
 footer.site .fin { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); }
 footer.site .fin a:hover { color: var(--ink); }
 .sociallist { display: flex; gap: 18px; flex-wrap: wrap; }
+.themesw { display: inline-flex; gap: 2px; margin: -3px 0; }
+.themesw button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--ink3); padding: 3px 7px; border-radius: 2px; transition: color .15s, background .15s; }
+.themesw button:hover { color: var(--ink); }
+.themesw button[aria-pressed="true"] { color: var(--ink); background: var(--wash2); }
 .backlink { display: inline-flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: 11px; letter-spacing: .11em; text-transform: uppercase; color: var(--ink3); }
 .backlink:hover { color: var(--ink); }
 .arrow { display: inline-block; transition: transform .2s; }
@@ -287,7 +326,7 @@ mark { background: var(--accent-soft); color: var(--ink); border-radius: 1px; }
 /* giscus injects its own .giscus wrapper right after the script tag. */
 .comments { min-height: 260px; }
 .comments .giscus, .comments .giscus-frame { width: 100%; }
-.comments .giscus-frame { border: 0; color-scheme: light; }
+.comments .giscus-frame { border: 0; }
 
 /* ─── Curated cards ─────────────────────────────────────────── */
 .curated-cards > a { padding: 36px 30px; transition: background .15s; }

@@ -112,6 +112,13 @@ const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": grap
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Apply a pinned theme before first paint so the page doesn't flash. -->
+    <script is:inline>
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
 
     <title>{title}</title>
     <meta name="description" content={desc} />
@@ -148,7 +155,8 @@ const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": grap
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
 
-    <meta name="theme-color" content="#0b0b0c" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e0e0c" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -195,6 +203,11 @@ const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": grap
           <a href="https://dev.to/ok9xnirab" target="_blank" rel="noreferrer">dev.to</a>
           <a href="https://twitter.com/Ok9xNirab" target="_blank" rel="noreferrer">x / twitter</a>
         </span>
+        <span class="themesw" role="group" aria-label="Color theme">
+          <button type="button" data-theme-set="light" aria-pressed="false">light</button>
+          <button type="button" data-theme-set="system" aria-pressed="false">system</button>
+          <button type="button" data-theme-set="dark" aria-pressed="false">dark</button>
+        </span>
         <span>Dhaka, BD · GMT+6</span>
       </div>
     </footer>
@@ -214,6 +227,41 @@ const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": grap
         };
         if (map[e.key]) window.location.href = map[e.key];
       });
+
+      // Theme switcher: "system" clears the pin and lets the OS decide.
+      const root = document.documentElement;
+      const osDark = window.matchMedia("(prefers-color-scheme: dark)");
+      const themeButtons = document.querySelectorAll<HTMLButtonElement>("[data-theme-set]");
+
+      function syncTheme() {
+        const pinned = root.dataset.theme;
+        const choice = pinned || "system";
+        const dark = pinned ? pinned === "dark" : osDark.matches;
+        themeButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.themeSet === choice)));
+        document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((m) => {
+          m.content = dark ? "#0e0e0c" : "#ffffff";
+        });
+        const giscus = document.querySelector<HTMLIFrameElement>("iframe.giscus-frame");
+        giscus?.contentWindow?.postMessage(
+          { giscus: { setConfig: { theme: pinned || "preferred_color_scheme" } } },
+          "https://giscus.app"
+        );
+      }
+
+      themeButtons.forEach((b) =>
+        b.addEventListener("click", () => {
+          const choice = b.dataset.themeSet;
+          if (choice === "light" || choice === "dark") root.dataset.theme = choice;
+          else delete root.dataset.theme;
+          try {
+            if (root.dataset.theme) localStorage.setItem("theme", root.dataset.theme);
+            else localStorage.removeItem("theme");
+          } catch (e) {}
+          syncTheme();
+        })
+      );
+      osDark.addEventListener("change", syncTheme);
+      syncTheme();
     </script>
   </body>
 </html>
