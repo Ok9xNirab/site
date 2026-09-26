@@ -1,0 +1,9 @@
+# Tag pages moved to lowercase URLs. Keep the old mixed-case links working.
+# Not forced, so the lowercase page itself is served as a normal file.
+/tag/Laravel      /tag/laravel      301
+/tag/LLM          /tag/llm          301
+/tag/Networking   /tag/networking   301
+/tag/NLP          /tag/nlp          301
+/tag/vsCode       /tag/vscode       301
+/tag/WooCommerce  /tag/woocommerce  301
+/tag/WordPress    /tag/wordpress    301

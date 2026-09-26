@@ -7,6 +7,7 @@
 import { PROFILE } from "./site.js";
 import { CASES } from "./cases.js";
 import { CURATED_CATEGORIES } from "./curated.js";
+import { tagSlug } from "../utils/index.js";
 
 const posts = Object.values(import.meta.glob("/posts/**/*.{md,mdx}", { eager: true }))
   .map((m) => m.frontmatter)
@@ -82,7 +83,7 @@ const tags = [...new Set(posts.flatMap((f) => f.tags ?? []))];
 const tagPages = tags.map((tag) => {
   const n = posts.filter((f) => (f.tags ?? []).includes(tag)).length;
   return {
-    path: `/tag/${tag}`,
+    path: `/tag/${tagSlug(tag)}`,
     title: `#${tag}`,
     description: `${n} ${n === 1 ? "post" : "posts"} on ${tag}.`,
   };

@@ -5,7 +5,7 @@ import "katex/dist/katex.min.css";
 import Eyebrow from "@components/Eyebrow.astro";
 import Contact from "@components/Contact.astro";
 import Giscus from "@components/Giscus.astro";
-import { getFormattedDate, getShortDate } from "@utils/index";
+import { getFormattedDate, getShortDate, tagSlug } from "@utils/index";
 
 export async function getStaticPaths() {
   const posts = (await Astro.glob("./../../../posts/**/*.{md,mdx}")).filter(
@@ -60,7 +60,7 @@ const breadcrumbs = {
         <a class="backlink" href="/blog">← Writing</a>
         <div style="display: flex; gap: 14px; align-items: baseline; margin: 34px 0 20px; flex-wrap: wrap;">
           {(post.frontmatter.tags ?? []).map((tag: string) => (
-            <a href={`/tag/${tag}`} class="chip chip-a">{tag}</a>
+            <a href={`/tag/${tagSlug(tag)}`} class="chip chip-a">{tag}</a>
           ))}
           <span class="mono">{getFormattedDate(post.frontmatter.date)}</span>
         </div>

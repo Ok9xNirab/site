@@ -1,4 +1,6 @@
 ---
+import { tagSlug } from "@utils/index";
+
 export async function getStaticPaths() {
   const allPosts = (await Astro.glob("./../../../posts/**/*.{md,mdx}")).filter(
     (post) => !post.frontmatter.draft
@@ -15,16 +17,15 @@ export async function getStaticPaths() {
       post.frontmatter.tags.includes(tag)
     );
     paths.push({
-      params: { tag: tag },
-      props: { posts: filteredPosts },
+      params: { tag: tagSlug(tag) },
+      props: { posts: filteredPosts, name: tag },
     });
   });
 
   return paths;
 }
 
-const { tag } = Astro.params;
-const { posts } = Astro.props;
+const { posts, name: tag } = Astro.props;
 
 import Default from "@layouts/default.astro";
 import Contact from "@components/Contact.astro";

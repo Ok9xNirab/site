@@ -1,5 +1,6 @@
 import { CASES } from "../data/cases.js";
 import { CURATED_CATEGORIES } from "../data/curated.js";
+import { tagSlug } from "../utils/index.js";
 
 const SITE = "https://nirab.me";
 
@@ -36,7 +37,7 @@ export async function get() {
     });
 
   const tags = [...new Set(live.flatMap((f) => f.tags ?? []))];
-  for (const t of tags) add(`/tag/${encodeURIComponent(t)}`, { priority: "0.4" });
+  for (const t of tags) add(`/tag/${encodeURIComponent(tagSlug(t))}`, { priority: "0.4" });
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
