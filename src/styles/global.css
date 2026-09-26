@@ -296,6 +296,8 @@ mark { background: var(--accent-soft); color: var(--ink); border-radius: 1px; }
 .prose-editorial h2 { font-size: 1.5em; }
 .prose-editorial h3 { font-size: 1.25em; }
 .prose-editorial p { font-size: 18px; line-height: 1.8; color: var(--ink); letter-spacing: -.01em; text-wrap: pretty; margin-bottom: 26px; }
+/* A paragraph that introduces a list sits close to it. */
+.prose-editorial p:has(+ ul), .prose-editorial p:has(+ ol) { margin-bottom: 10px; }
 .prose-editorial a { color: var(--accent); text-decoration: underline; }
 .prose-editorial code { font-family: var(--mono); font-size: 15px; background: var(--wash2); padding: 2px 6px; border-radius: 2px; }
 .prose-editorial pre { background: var(--wash2); border: 1px solid var(--line); padding: 20px 24px; border-radius: 2px; overflow-x: auto; margin-bottom: 1.5em; }
