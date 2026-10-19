@@ -1,4 +1,4 @@
-// Case studies — real client work.
+// Case studies — client work and my own products.
 
 const mk = (o) =>
   Object.assign(
@@ -12,7 +12,7 @@ const mk = (o) =>
     o
   );
 
-export const CASES = [
+const ALL = [
   mk({
     slug: "soundcloudplace",
     n: "01",
@@ -50,4 +50,51 @@ export const CASES = [
       { id: "scp-4", cap: "admin dashboard — groups management", img: "/work/soundcloudplace/admin-dashboard.png" },
     ],
   }),
+  mk({
+    slug: "myself",
+    n: "02",
+    title: "MySelf",
+    sub: "Personal productivity app for macOS",
+    category: "Swift",
+    stack: ["Swift", "SwiftUI", "iCloud Drive", "SwiftMath"],
+    year: "2026",
+    duration: "Ongoing",
+    team: "Solo",
+    role: "Designer and engineer",
+    blurb: "One native Mac app for todos, notes, university classes, office tasks, interview prep and Kanban boards — open source and synced between Macs over iCloud Drive.",
+    metrics: [
+      { v: "7", l: "sections in one window" },
+      { v: "0", l: "accounts or servers" },
+      { v: "1", l: "JSON file per record" },
+    ],
+    overview: "MySelf replaces the five apps I was using to run my week: a todo list, a notes app, a Kanban board, a study tracker and a class calendar. It's a native SwiftUI app with a Dashboard that pulls what's due today from every section into one list. There's no account and no backend: every item is a small JSON file in a folder you choose, and iCloud Drive moves those files between Macs.",
+    problem: [
+      "Sync without a server or a paid Apple developer account. CloudKit needs an entitlement that needs a paid membership, and I didn't want to run a backend for a personal app.",
+      "Seven very different sections — a block editor with LaTeX and code, Kanban boards, a revision tracker, a class schedule — had to feel like one app, not seven mini-apps stitched together.",
+      "Not everyone needs every section, so each one has to be removable from the sidebar, Dashboard, search and shortcuts without losing its data.",
+    ],
+    approach: [
+      { h: "A folder is the database", p: "Every todo, note, class, card and label is saved as its own pretty-printed JSON file, <folder>/<id>.json. Edits to different records on two Macs can never conflict, deleting a record is removing a file, and if the same record changed on both Macs the newer updatedAt wins." },
+      { h: "Sync through iCloud Drive, not CloudKit", p: "The user picks a folder in iCloud Drive once per Mac, kept across launches with a security-scoped bookmark. A file presenter, app activation and a slow poll (faster while files are still uploading) trigger re-reads, and a modified-date cache means only changed files are decoded again." },
+      { h: "One design system, keyboard-first", p: "Shared cards, badges, chips and progress views keep every section consistent, and the app follows macOS light/dark mode and accent colour. ⌘K opens Quick Open, ⌥⌘K opens a Spotlight-style search panel from any app, and every page has a shortcut." },
+      { h: "Features as switches", p: "Each section can be turned off in Settings › Features. It disappears from the sidebar, Dashboard, search and shortcuts, but its files stay on disk, so turning it back on restores everything." },
+    ],
+    results: "MySelf is my daily driver and is open source under MIT. It ships as a universal DMG for Apple Silicon and Intel through GitHub Releases, checks GitHub for updates once a day, and keeps todos, office tasks, notes, University, Job Study and Product Dev in sync across my Macs. Workout tracking is next on the roadmap.",
+    links: [
+      { label: "Source on GitHub", url: "https://github.com/Ok9xNirab/myself" },
+      { label: "Download the DMG", url: "https://github.com/Ok9xNirab/myself/releases/latest" },
+    ],
+    gallery: [
+      { id: "ms-1", cap: "dashboard — today's focus across every section", img: "/work/myself/dashboard.png" },
+      { id: "ms-2", cap: "todos — priorities, labels and due dates", img: "/work/myself/todos.png" },
+      { id: "ms-3", cap: "university — classes, exams and syllabus progress", img: "/work/myself/university.png" },
+      { id: "ms-4", cap: "notes — block editor with LaTeX and code", img: "/work/myself/notes.png" },
+      { id: "ms-5", cap: "job study — revision tracking per topic", img: "/work/myself/job-study.png" },
+      { id: "ms-6", cap: "product dev — Kanban board per product", img: "/work/myself/product-dev.png" },
+      { id: "ms-7", cap: "office tasks — work items with reference links", img: "/work/myself/office-tasks.png" },
+    ],
+  }),
 ];
+
+// Newest first.
+export const CASES = ALL.sort((a, b) => b.n.localeCompare(a.n));
