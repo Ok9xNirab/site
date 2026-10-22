@@ -94,6 +94,45 @@ const ALL = [
       { id: "ms-7", cap: "office tasks — work items with reference links", img: "/work/myself/office-tasks.png" },
     ],
   }),
+  mk({
+    slug: "glance",
+    n: "03",
+    title: "Glance",
+    sub: "Git client for reviewing AI agents' work on macOS",
+    category: "Swift",
+    stack: ["Swift", "SwiftUI", "git", "tree-sitter", "FSEvents"],
+    year: "2026",
+    duration: "Ongoing",
+    team: "Solo",
+    role: "Designer and engineer",
+    blurb: "A native Mac git client for reviewing what Claude Code, Codex, Copilot and other coding agents change, across every repository, worktree and branch in one window.",
+    metrics: [
+      { v: "1", l: "window for every worktree" },
+      { v: "0", l: "commits made by Glance" },
+      { v: "0", l: "accounts, servers or tracking" },
+    ],
+    overview: "When several coding agents work at once, each in its own git worktree, keeping up with what they changed means jumping between terminals, git diff and an editor. Glance puts every repository, worktree and branch in one sidebar. You read each agent's changes as they happen, mark files as reviewed, throw away the hunks you don't want, and hand the rest back to the agent to commit.",
+    problem: [
+      "Agents write files constantly and in parallel. A review tool that needs a refresh button, or only knows about one checkout, falls behind the moment there are three worktrees.",
+      "Reviewing is not committing. If the tool stages and commits for you, it fights the agent over git state, and merge conflicts end up in the wrong hands.",
+      "It had to run the user's own git, with their config, hooks and credentials, and still feel instant on large repositories.",
+    ],
+    approach: [
+      { h: "Read .git directly, write through git", p: "Worktrees, branches and the remote are read straight from the files in .git, which is much quicker than running git on every refresh. Anything that writes, such as discarding a hunk or pushing, runs /usr/bin/git, so the user's config, hooks and credentials apply." },
+      { h: "Live without polling", p: "An FSEvents watcher re-reads a worktree's changes whenever its files, index or HEAD change, so diffs appear while the agent is still writing. Each window keeps its own models per worktree, so switching with ⌘K is instant." },
+      { h: "The agent stays in charge of git", p: "Glance doesn't commit, fetch, pull or merge. You mark files as viewed, and Copy commit prompt gives the agent a prompt to commit only those. Discarding a hunk applies a one-hunk reverse patch, and ⌘Z writes the old contents back." },
+      { h: "Know which agent did what", p: "History reads the newest 500 commits, marks the unpushed ones and names the agent from each commit's Co-authored-by trailer. Diffs are syntax-highlighted with tree-sitter in unified or split view." },
+    ],
+    results: "Glance is open source under MIT and ships as a universal DMG for Apple Silicon and Intel through GitHub Releases. I use it every day to review the agents working across my own repositories. An update check and Developer ID notarization are next on the roadmap.",
+    links: [
+      { label: "About Glance", url: "https://glance.nirab.me/" },
+      { label: "Source on GitHub", url: "https://github.com/Ok9xNirab/Glance" },
+      { label: "Download the DMG", url: "https://github.com/Ok9xNirab/Glance/releases/latest" },
+    ],
+    gallery: [
+      { id: "gl-1", cap: "changes — worktrees, changed files and a syntax-highlighted diff", img: "/work/glance/changes.png" },
+    ],
+  }),
 ];
 
 // Newest first.
